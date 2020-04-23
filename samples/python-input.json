@@ -1,15 +1,21 @@
 {
-    "channel": [
-        {
-            "name": "mychannel",
-            "orgs": [
-                "org1",
-                "org2"
-            ]
-        }
-    ],
+    "channel": [{
+        "name": "mychannel",
+        "orgs": [
+            "org1",
+            "org2"
+        ]
+    }],
     "organizations": {
-        "peerOrgs":[2,2],
+        "peerOrgs": [{
+                "url": "org1.example.com",
+                "count": 2
+            },
+            {
+                "url": "org2.example.com",
+                "count": 2
+            }
+        ],
         "ordererorg": {
             "mspID": "OrdererMSP"
         }
@@ -21,8 +27,7 @@
         "consensus": "solo"
     },
     "e_policy": {
-        "identities": [
-            {
+        "identities": [{
                 "name": "member",
                 "org": "org1"
             },

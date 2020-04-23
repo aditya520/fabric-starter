@@ -1,18 +1,30 @@
 import os
 import sys
 import yaml
+import json
+
 
 args = sys.argv
 
+
+###### JSON File ######
+
+with open('./samples/python-input.json') as f:
+  jsonData = json.load(f)
+
+
+
+
 ###### HardCoded Values ######
-n_orgs = args[1]
-n_peer_org = args[2]
+# n_orgs = args[1]
+# n_peer_org = args[2]
 n_ord = 1 #for time being let keep it 1
 org_name = "example"
 peer_name = "peer"
 network_name = ["byfn"]
 
-yaml.Dumper.ignore_aliases = lambda *args : True
+# yaml.Dumper.ignore_aliases = lambda *args : True
+yaml.SafeDumper.ignore_aliases = lambda *args : True
 
 
 # class D(dict):
@@ -32,9 +44,12 @@ list_doc["networks"] = networks
 #### Volumes ####
 
 org_final_name = ["orderer.example.com"]
-for org in range(1,int(n_orgs)+1):
-     for peer in range(0,int(n_peer_org)):
-          orgName = peer_name + str(peer) + "." + "org" + str(org) + "." + org_name + ".com"
+
+
+for i in range(0,len(jsonData["organizations"]["peerOrgs"])):
+     org = jsonData["organizations"]["peerOrgs"][i]["url"]
+     for peer in range(0,int(jsonData["organizations"]["peerOrgs"][0]["count"])):
+          orgName = peer_name + str(peer) + "." + org
           org_final_name.append(orgName)
 
 
@@ -76,7 +91,7 @@ list_doc["services"]["cli"]["networks"] = network_name
 
 
 with open("docker-compose-cli-boilerplate2.yaml", "w") as f:
-    yaml.dump(list_doc, f)
+    yaml.safe_dump(list_doc, f)
 
 
 
