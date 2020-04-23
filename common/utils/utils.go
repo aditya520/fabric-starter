@@ -3,7 +3,10 @@ package utils
 import (
 	"encoding/json"
 	"errors"
+	"io/ioutil"
 	"net/url"
+	"os"
+	"path/filepath"
 	"reflect"
 	"strconv"
 	"strings"
@@ -167,25 +170,25 @@ func ConvertStringArray(strArr []string, arrType string) (interface{}, error) {
 	}
 }
 
-// // MapQueryParamsByType will partition parameters based on the relevant type
-// func MapQueryParamsByType(params map[string][]string) (map[string]map[string][]string, error) {
-// 	var newParams = make(map[string]map[string][]string)
-// 	for key, values := range params {
-// 		switch strings.Split(key, ".")[0] {
-// 		case consts.AssetQueryParam:
-// 			if newParams[consts.AssetQueryParam] == nil {
-// 				newParams[consts.AssetQueryParam] = make(map[string][]string)
-// 			}
-// 			newParams[consts.AssetQueryParam][strings.Join(strings.Split(key, ".")[1:], ".")] = values
-// 		case consts.EntityQueryParam:
-// 			if newParams[consts.EntityQueryParam] == nil {
-// 				newParams[consts.EntityQueryParam] = make(map[string][]string)
-// 			}
-// 			newParams[consts.EntityQueryParam][strings.Join(strings.Split(key, ".")[1:], ".")] = values
-// 		default:
-// 			return nil, errors.New("Invalid Parameter")
-// 		}
-// 	}
+func CreateFile(fileName string) (*os.File, error) {
+	dir, err := os.Getwd()
+	if err != nil {
+		return nil, err
+	}
 
-// 	return newParams, nil
-// }
+	file, err := os.Create(filepath.Join(dir, fileName))
+	if err != nil {
+		return nil, err
+	}
+
+	return file, nil
+}
+
+func WriteFile(fileName string, bytes []byte) error {
+	err := ioutil.WriteFile(fileName, bytes, 0644)
+	if err != nil {
+		return err
+	}
+
+	return nil
+}
