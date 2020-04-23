@@ -9,7 +9,7 @@ args = sys.argv
 
 ###### JSON File ######
 
-with open('./samples/python-input.json') as f:
+with open('../samples/python-input.json') as f:
   jsonData = json.load(f)
 
 
@@ -31,7 +31,7 @@ yaml.SafeDumper.ignore_aliases = lambda *args : True
 #         return self[key]
 
 
-with open("docker-compose-cli-boilerplate.yaml") as f:
+with open("../docker-files/boilerplate_files/docker-compose-cli-boilerplate.yaml") as f:
      list_doc = yaml.load(f)
 
 #### Networks ####
@@ -42,10 +42,11 @@ list_doc["networks"] = networks
 #### Volumes ####
 
 ## Orderer Volume ##
-org_final_name = ["orderer.example.com"]
-for i in range(0,len(jsonData["organizations"]["orderers"])):
+org_final_name = []
+for orderer in jsonData["organizations"]["ordererOrg"]["url"]:
+     org_final_name.append(orderer)
 
-## ORG Volumes ###
+### ORG Volumes ###
 for i in range(0,len(jsonData["organizations"]["peerOrgs"])):
      org = jsonData["organizations"]["peerOrgs"][i]["url"]
      for peer in range(0,int(jsonData["organizations"]["peerOrgs"][0]["count"])):
@@ -90,7 +91,7 @@ list_doc["services"]["cli"]["networks"] = network_name
 # print (list_doc["services"])
 
 
-with open("docker-compose-cli-boilerplate2.yaml", "w") as f:
+with open("../docker-files/final_files/docker-compose-cli.yaml", "w") as f:
     yaml.safe_dump(list_doc, f)
 
 
