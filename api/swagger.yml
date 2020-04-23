@@ -1,0 +1,119 @@
+info:
+  description: Fabric Starter Server
+  title: FSS
+  version: 1.0.0
+consumes:
+  - application/json
+produces:
+  - application/json
+schemes:
+  - http
+swagger: "2.0"
+host: 'localhost:9000'
+basePath: /
+paths:
+  /network/create:
+    post:
+      tags: 
+        - network
+      operationId: create
+      parameters:
+        - name: body
+          description: Network configuration
+          in: body
+          schema:
+            $ref: '#/definitions/object'
+      responses:
+        200: 
+          description: Successful network build
+          schema: 
+            type: string
+        default:
+          description: Error
+          schema:
+            $ref: '#/definitions/error' 
+definitions:
+  object:
+    type: object
+    properties:
+      name:
+        type: string
+        minLength: 1
+        description: 'Name of the network'
+      network:
+        $ref: '#/definitions/network'
+      channel:
+        type: array
+        items:
+          $ref: '#/definitions/channel'
+      e_policy:
+        $ref: '#/definitions/e_policy'
+  network:
+    type: object
+    properties:
+      orgs:
+        items: 
+          $ref: '#/definitions/orgs'
+        type: array
+      orderer: 
+        $ref: '#/definitions/orderer'
+  orgs:
+    type: object
+    properties:
+      name:
+        type: string
+      no_of_peers:
+        type: string
+  orderer:
+    type: object
+    properties:
+      count: 
+        type: string
+      name: 
+        type: string
+      consensus:
+        type: string
+  channel:
+    type: object
+    properties:
+      name:
+        type: string
+      orgs:
+        type: array
+        items:
+          type: string
+  e_policy:
+    type: object
+    properties:
+      identities:
+        items:
+          $ref: '#/definitions/identities'
+        type: array
+      policy:
+        type: object
+        properties:
+          count:
+            type: string
+          signature:
+            type: array
+            items:
+              type: integer
+  identities:
+    type: object
+    properties:
+      name:
+        type: string
+      org:
+        type: string           
+  error:
+    type: object
+    properties:
+      code:
+        type: integer
+        format: int64
+      message:
+        type: string
+        minLength: 1
+    required:
+      - message
+      

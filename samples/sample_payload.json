@@ -1,0 +1,56 @@
+{
+    "name": "Test Network",
+    "network": {
+        "orgs": [
+            {
+                "name": "org1",
+                "no_of_peers": "2"
+            },
+            {
+                "name": "org2",
+                "no_of_peers": "2"
+            }
+        ],
+        "orderer": {
+            "count": 1,
+            "name": "orderer0",
+            "consensus": "solo"
+        }
+    },
+    "channel": [
+        {
+            "name": "mychannel",
+            "orgs": [
+                "org1",
+                "org2"
+            ]
+        }
+    ],
+    "endorsement-policy": {
+        "identities": [
+            {
+                "role": {
+                    "name": "member",
+                    "org": "org1"
+                }
+            },
+            {
+                "role": {
+                    "name": "member",
+                    "org": "org2"
+                }
+            }
+        ],
+        "policy": {
+        	"count":"2",
+            "identities": [
+                {
+                    "signed-by": 0
+                },
+                {
+                    "signed-by": 1
+                }
+            ]
+        }
+    }
+}
