@@ -9,32 +9,7 @@
         }
     ],
     "organizations": {
-        "org1": {
-            "mspid": "Org1MSP",
-            "peers": [
-                {
-                    "name": "peer0.org1.example.com",
-                    "port": 7051
-                },
-                {
-                    "name": "peer1.org1.example.com",
-                    "port": 8051
-                }
-            ]
-        },
-        "org2": {
-            "mspid": "Org2MSP",
-            "peers": [
-                {
-                    "name": "peer0.org2.example.com",
-                    "port": 9051
-                },
-                {
-                    "name": "peer1.org2.example.com",
-                    "port": 10051
-                }
-            ]
-        },
+        "peerOrgs":[2,2],
         "ordererorg": {
             "mspID": "OrdererMSP"
         }
@@ -45,25 +20,23 @@
         ],
         "consensus": "solo"
     },
-    "endorsement-policy": {
+    "e_policy": {
         "identities": [
             {
-                "role": {
-                    "name": "member",
-                    "org": "org1"
-                }
+                "name": "member",
+                "org": "org1"
             },
             {
-                "role": {
-                    "name": "member",
-                    "org": "org2"
-                }
+                "name": "member",
+                "org": "org2"
             }
         ],
         "policy": {
-        	"count":"2",
-            "signature": [0,1]
+            "count": "2",
+            "signature": [
+                0,
+                1
+            ]
         }
     }
-
 }
