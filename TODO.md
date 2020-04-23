@@ -7,3 +7,4 @@
 3. Create Script for Peer-base file
 4. Create Script for configtx.yaml
 5. Create Script of Crypto-config.yaml
+6. Transfer python files to new folder
