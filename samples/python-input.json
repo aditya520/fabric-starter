@@ -7,7 +7,8 @@
         ]
     }],
     "organizations": {
-        "peerOrgs": [{
+        "peerOrgs": [
+            {
                 "url": "org1.example.com",
                 "count": 2
             },
