@@ -4,4 +4,4 @@
 
 ## To create custom Docker file
 
-```python test.py [n_orgs] [n_peers]```
+```python create_docker_cli.py```

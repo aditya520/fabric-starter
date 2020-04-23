@@ -18,8 +18,6 @@ with open('./samples/python-input.json') as f:
 ###### HardCoded Values ######
 # n_orgs = args[1]
 # n_peer_org = args[2]
-n_ord = 1 #for time being let keep it 1
-org_name = "example"
 peer_name = "peer"
 network_name = ["byfn"]
 
@@ -43,9 +41,11 @@ list_doc["networks"] = networks
 
 #### Volumes ####
 
+## Orderer Volume ##
 org_final_name = ["orderer.example.com"]
+for i in range(0,len(jsonData["organizations"]["orderers"])):
 
-
+## ORG Volumes ###
 for i in range(0,len(jsonData["organizations"]["peerOrgs"])):
      org = jsonData["organizations"]["peerOrgs"][i]["url"]
      for peer in range(0,int(jsonData["organizations"]["peerOrgs"][0]["count"])):
