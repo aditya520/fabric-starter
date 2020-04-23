@@ -9,7 +9,16 @@
         }
     ],
     "organizations": {
-        "peerOrgs":[2,2],
+        "peerOrgs": [
+            {
+                "url": "org1.example.com",
+                "count": 2
+            },
+            {
+                "url": "org2.example.com",
+                "count": 2
+            }
+        ],
         "ordererorg": {
             "mspID": "OrdererMSP"
         }
