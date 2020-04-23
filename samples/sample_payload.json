@@ -43,14 +43,7 @@
         ],
         "policy": {
         	"count":"2",
-            "identities": [
-                {
-                    "signed-by": 0
-                },
-                {
-                    "signed-by": 1
-                }
-            ]
+            "signature": [0,1]
         }
     }
 }

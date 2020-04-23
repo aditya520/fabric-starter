@@ -1,0 +1,192 @@
+{
+    "version": "1.0.0",
+    "client": {
+      "organization": "org1",
+      "logging": {
+        "level": "info"
+      },
+      "cryptoconfig": {
+        "path": "${CRYPTOS_PATH}"
+      },
+      "credentialStore": {
+        "path": "/tmp/state-store",
+        "cryptoStore": {
+          "path": "/tmp/msp"
+        }
+      },
+      "BCCSP": {
+        "security": {
+          "enabled": false,
+          "default": {
+            "provider": "SW"
+          },
+          "hashAlgorithm": "SHA2",
+          "softVerify": true,
+          "level": 256
+        }
+      },
+      "tlsCerts": {
+        "systemCertPool": false
+      }
+    },
+    "channels": {
+      "_default": {
+        "peers": {
+          "peer0.org1.example.com": {
+            "endorsingPeer": true,
+            "chaincodeQuery": true,
+            "ledgerQuery": true,
+            "eventSource": true
+          }
+        },
+        "policies": {
+          "discovery": {
+            "maxTargets": 2,
+            "retryOpts": {
+              "attempts": 4,
+              "initialBackoff": "500ms",
+              "maxBackoff": "5s",
+              "backoffFactor": 2
+            }
+          },
+          "selection": {
+            "SortingStrategy": "BlockHeightPriority",
+            "Balancer": "RoundRobin",
+            "BlockHeightLagThreshold": 5
+          },
+          "queryChannelConfig": {
+            "minResponses": 1,
+            "maxTargets": 1,
+            "retryOpts": {
+              "attempts": 5,
+              "initialBackoff": "500ms",
+              "maxBackoff": "5s",
+              "backoffFactor": 2
+            }
+          },
+          "eventService": {
+            "resolverStrategy": "PreferOrg",
+            "balancer": "RoundRobin",
+            "blockHeightLagThreshold": 2,
+            "reconnectBlockHeightLagThreshold": 5,
+            "peerMonitorPeriod": "3s"
+          }
+        }
+      },
+      "mychannel": {
+        "policies": {
+          "discovery": {
+            "retryOpts": {
+              "attempts": 4,
+              "initialBackoff": "1s"
+            }
+          }
+        }
+      },
+      "orgchannel": {
+        "peers": {
+          "peer0.org1.example.com": {
+            "endorsingPeer": true,
+            "chaincodeQuery": true,
+            "ledgerQuery": true,
+            "eventSource": true
+          }
+        }
+      }
+    },
+    "organizations": {
+      "org1": {
+        "mspid": "Org1MSP",
+        "cryptoPath": "peerOrganizations/org1.example.com/users/{username}@org1.example.com/msp",
+        "peers": [
+          "peer0.org1.example.com"
+        ],
+        "certificateAuthorities": [
+          "ca.example.com"
+        ]
+      },
+      "ordererorg": {
+        "mspID": "OrdererMSP",
+        "cryptoPath": "ordererOrganizations/example.com/users/{username}@example.com/msp"
+      }
+    },
+    "orderers": {
+      "_default": {
+        "grpcOptions": {
+          "keep-alive-time": "0s",
+          "keep-alive-timeout": "20s",
+          "keep-alive-permit": false,
+          "fail-fast": false,
+          "allow-insecure": false
+        }
+      },
+      "orderer.example.com": {
+        "url": "orderer.example.com:7050",
+        "grpcOptions": {
+          "keep-alive-time": "0s",
+          "keep-alive-timeout": "20s",
+          "keep-alive-permit": false,
+          "fail-fast": false,
+          "allow-insecure": true
+        },
+        "tlsCACerts": {
+          "path": "${CRYPTOS_PATH}/ordererOrganizations/example.com/tlsca/tlsca.example.com-cert.pem"
+        }
+      }
+    },
+    "peers": {
+      "_default": {
+        "grpcOptions": {
+          "keep-alive-time": "0s",
+          "keep-alive-timeout": "20s",
+          "keep-alive-permit": false,
+          "fail-fast": false,
+          "allow-insecure": true
+        }
+      },
+      "peer0.org1.example.com": {
+        "url": "peer0.org1.example.com:7051",
+        "tlsCACerts": {
+          "path": "${CRYPTOS_PATH}/peerOrganizations/org1.example.com/tlsca/tlsca.org1.example.com-cert.pem"
+        }
+      }
+    },
+    "certificateAuthorities": {
+      "ca.example.com": {
+        "url": "https://ca.example.com:7054",
+        "tlsCACerts": {
+          "path": "${CRYPTOS_PATH}/peerOrganizations/org1.example.com/tlsca/tlsca.org1.example.com-cert.pem"
+        },
+        "registrar": {
+          "enrollId": "admin",
+          "enrollSecret": "adminpw"
+        },
+        "caName": "ca.example.com"
+      }
+    },
+    "operations": {
+      "listenAddress": "127.0.0.1:8080",
+      "tls": {
+        "enabled": false,
+        "cert": {
+          "file": null
+        },
+        "key": {
+          "file": null
+        },
+        "clientAuthRequired": false,
+        "clientRootCAs": {
+          "files": []
+        }
+      }
+    },
+    "metrics": {
+      "provider": "prometheus",
+      "statsd": {
+        "network": "udp",
+        "address": "127.0.0.1:8125",
+        "writeInterval": "10s",
+        "prefix": null
+      }
+    }
+  }
