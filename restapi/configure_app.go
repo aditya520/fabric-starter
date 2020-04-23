@@ -12,8 +12,11 @@ import (
 	log "github.com/sirupsen/logrus"
 
 	"fabric_starter/common/utils"
+	"fabric_starter/models"
 	"fabric_starter/restapi/operations"
 	"fabric_starter/restapi/operations/network"
+
+	networkLogic "fabric_starter/logic/network"
 )
 
 //go:generate swagger generate server --target ../../fabric_starter --name App --spec ../api/swagger.yml
@@ -32,8 +35,6 @@ func configureAPI(api *operations.AppAPI) http.Handler {
 	// Example:
 	api.Logger = log.Printf
 
-	//api.Logger = log.Debugf
-
 	api.JSONConsumer = runtime.JSONConsumer()
 
 	api.JSONProducer = runtime.JSONProducer()
@@ -42,7 +43,17 @@ func configureAPI(api *operations.AppAPI) http.Handler {
 		api.Logger("Endpoint path: " + utils.AsJSON(params.HTTPRequest.RequestURI))
 		api.Logger("Endpoint params: " + utils.AsJSON(params))
 
-		return middleware.NotImplemented("operation network.Create has not yet been implemented")
+		msg, err := networkLogic.CreateNetwork(params.Body)
+		if err != nil {
+			errorMsg := err.Error()
+			return network.NewCreateDefault(400).WithPayload(&models.Error{
+				Code:    400,
+				Message: &errorMsg,
+			})
+		}
+
+		return network.NewCreateOK().WithPayload(msg)
+
 	})
 
 	api.PreServerShutdown = func() {}
