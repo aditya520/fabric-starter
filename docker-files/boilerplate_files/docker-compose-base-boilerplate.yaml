@@ -1,0 +1,32 @@
+peer0.{{ org }}.{{ global_domain }}:
+    container_name: peer0.{{ org }}.{{ global_domain }}
+    extends:
+      file: base.yaml
+      service: peer-base
+    environment:
+      - CORE_PEER_ID=peer0.{{ org }}.{{ global_domain }}
+      - CORE_PEER_LOCALMSPID={{ org }}MSP
+      - CORE_PEER_ADDRESS=peer0.{{ org }}.{{ global_domain }}:7051
+      - CORE_PEER_GOSSIP_BOOTSTRAP=peer0.{{ org }}.{{ global_domain }}:7051
+      - CORE_PEER_GOSSIP_EXTERNALENDPOINT=peer0.{{ org }}.{{ global_domain }}:7051
+    ports:
+      - {{ peer0_port }}:7051
+    volumes:
+        - {{ fabric_artifacts }}/crypto-config/peerOrganizations/{{ org }}.{{ global_domain }}/peers/peer0.{{ org }}.{{ global_domain }}/:/etc/hyperledger/crypto/peer
+        - peer0.{{ org }}.{{ global_domain }}:/var/hyperledger/production
+    depends_on:
+      - ca.{{ org }}.{{ global_domain }}
+{% if use_couchdb == 'yes' %}
+      - couchdb.{{ org }}.{{ global_domain }}
+{% endif %}
+    extra_hosts:
+{% for fabric_host in groups['nodes'] %}
+{% if hostvars[fabric_host].inventory_hostname|string() != inventory_hostname|string() %}
+{% if 'orderer' in hostvars[fabric_host].node_roles %}
+      -  orderer{{ hostvars[fabric_host].orderer_id | default() }}.{{ global_domain }}:{{ hostvars[fabric_host].ansible_host }}
+{% endif %}
+{% if 'peer' in hostvars[fabric_host].node_roles %}
+      -  peer0.{{ hostvars[fabric_host].org }}.{{ global_domain }}:{{ hostvars[fabric_host].ansible_host }}
+{% endif %}
+{% endif %}
+{% endfor %}

@@ -1,0 +1,31 @@
+#
+# Copyright Altoros 2017 All Rights Reserved.
+#
+# ---------------------------------------------------------------------------
+# "PeerOrgs" - Definition of organizations managing peer nodes
+# ---------------------------------------------------------------------------
+PeerOrgs:
+  - Name: {{ org }}
+    Domain: {{ org }}.{{ global_domain }}
+    EnableNodeOUs: true
+    # ---------------------------------------------------------------------------
+    # "CA"
+    # ---------------------------------------------------------------------------
+    # Uncomment this section to enable the explicit definition of the CA for this
+    # organization.  This entry is a Spec.  See "Specs" section below for details.
+    # ---------------------------------------------------------------------------
+    CA:
+       Hostname: ca # implicitly ca.ORG.example.com
+    Template:
+      Count: 1
+      # Start: 5
+      SANS:
+        - "localhost"
+
+    # ---------------------------------------------------------------------------
+    # "Users"
+    # ---------------------------------------------------------------------------
+    # Count: The number of user accounts _in addition_ to Admin
+    # ---------------------------------------------------------------------------
+    Users:
+      Count: 1
