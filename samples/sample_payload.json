@@ -1,5 +1,5 @@
 {
-    "name": "Test Network",
+    "name": "test_network",
     "network": {
         "orgs": [
             {
@@ -12,7 +12,6 @@
             }
         ],
         "orderer": {
-            "count": "1",
             "name": "orderer0",
             "consensus": "solo"
         }

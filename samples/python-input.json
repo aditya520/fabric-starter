@@ -1,34 +1,37 @@
 {
-    "channel": [{
-        "name": "mychannel",
-        "orgs": [
-            "org1",
-            "org2"
-        ]
-    }],
+    "channel": [
+        {
+            "name": "mychannel",
+            "orgs": [
+                "org1",
+                "org2"
+            ]
+        }
+    ],
     "organizations": {
         "peerOrgs": [
             {
                 "url": "org1.example.com",
-                "count": 2
+                "count": 2,
+                "mspID": "Org1MSP"
             },
             {
                 "url": "org2.example.com",
-                "count": 2
+                "count": 2,
+                "mspID": "Org2MSP"
             }
         ],
-        "ordererorg": {
+        "ordererOrg": {
+            "url": [
+                "orderer0.example.com"
+            ],
+            "consensus": "solo",
             "mspID": "OrdererMSP"
         }
     },
-    "orderers": {
-        "url": [
-            "orderer0.example.com"
-        ],
-        "consensus": "solo"
-    },
     "e_policy": {
-        "identities": [{
+        "identities": [
+            {
                 "name": "member",
                 "org": "org1"
             },
