@@ -198,24 +198,26 @@ func WriteFile(fileName string, bytes []byte) error {
 }
 
 // RunScript runs the python script
-func RunScript(args string) {
-	cmd := exec.Command("python", "./scripts/script.py", args)
+func RunScript(args string) error {
+	cmd := exec.Command("python", "./scripts/main.py", args)
 	stdout, err := cmd.StdoutPipe()
 	if err != nil {
-		panic(err)
+		return err
 	}
 	stderr, err := cmd.StderrPipe()
 	if err != nil {
-		panic(err)
+		return err
 	}
 	err = cmd.Start()
 	if err != nil {
-		panic(err)
+		return err
 	}
 
 	go copyOutput(stdout)
 	go copyOutput(stderr)
 	cmd.Wait()
+
+	return nil
 }
 
 func copyOutput(r io.Reader) {

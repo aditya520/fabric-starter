@@ -51,6 +51,9 @@ func CreateNetwork(networkObj *models.Object) (string, error) {
 		return "", nil
 	}
 
-	utils.RunScript(fileName)
+	err = utils.RunScript(fileName)
+	if err != nil {
+		return "", nil
+	}
 	return "Success", nil
 }
