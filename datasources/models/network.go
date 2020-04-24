@@ -20,6 +20,7 @@ type Organisation struct {
 }
 
 type PeerOrg struct {
+	Name  string `json:"name"`
 	URL   string `json:"url"`
 	Count int    `json:"count"`
 	MspID string `json:"mspID"`

@@ -5,13 +5,8 @@ import yaml
 import json
 
 
-def create_docker_compose_cli(jsonData):
-    ###### HardCoded Values ######
-    # n_orgs = args[1]
-    # n_peer_org = args[2]
-    peer_name = "peer"
-    # TODO: Update to take value from json 
-    network_name = ["byfn"]
+with open('./samples/python-input.json') as f:
+    jsonData = json.load(f)
 
 
     # yaml.Dumper.ignore_aliases = lambda *args : True
@@ -23,8 +18,8 @@ def create_docker_compose_cli(jsonData):
 
     #### Networks ####
 
-    networks = dict.fromkeys(network_name,)
-    list_doc["networks"] = networks
+with open("./docker-files/boilerplate_files/docker-compose-cli-boilerplate.yaml") as f:
+    list_doc = yaml.load(f)
 
     #### Volumes ####
 
@@ -84,5 +79,7 @@ def create_docker_compose_cli(jsonData):
         yaml.safe_dump(list_doc, f)
 
 
+with open("./docker-files/final_files/docker-compose-cli.yaml", "w") as f:
+    yaml.safe_dump(list_doc, f)
 
     # print (list_doc)

@@ -25,6 +25,7 @@ func CreateNetwork(networkObj *models.Object) (string, error) {
 		}
 		mspID := strings.Title(strings.ToLower(networkObj.Network.Orgs[i].Name)) + "MSP"
 		var peerOrgObj = fileModels.PeerOrg{
+			Name:  networkObj.Network.Orgs[i].Name,
 			URL:   networkObj.Network.Orgs[i].Name + domain,
 			Count: count,
 			MspID: mspID,
