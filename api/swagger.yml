@@ -68,7 +68,7 @@ definitions:
     type: object
     properties:
       count: 
-        type: string
+        type: integer
       name: 
         type: string
       consensus:

@@ -179,7 +179,7 @@ func init() {
           "type": "string"
         },
         "count": {
-          "type": "string"
+          "type": "integer"
         },
         "name": {
           "type": "string"
@@ -375,7 +375,7 @@ func init() {
           "type": "string"
         },
         "count": {
-          "type": "string"
+          "type": "integer"
         },
         "name": {
           "type": "string"

@@ -34,7 +34,10 @@ func CreateNetwork(networkObj *models.Object) (string, error) {
 		obj.Organisation.PeerOrg = append(obj.Organisation.PeerOrg, peerOrgObj)
 	}
 
-	obj.Organisation.OrdererOrg.URL = []string{networkObj.Network.Orderer.Name + domain}
+	for i := 0; i < int(networkObj.Network.Orderer.Count); i++ {
+		obj.Organisation.OrdererOrg.URL = append(obj.Organisation.OrdererOrg.URL, networkObj.Network.Orderer.Name+strconv.Itoa(i)+domain)
+	}
+
 	obj.Organisation.OrdererOrg.Consensus = networkObj.Network.Orderer.Consensus
 	obj.Organisation.OrdererOrg.MspID = "OrdererMSP"
 

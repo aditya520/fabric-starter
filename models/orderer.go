@@ -18,7 +18,7 @@ type Orderer struct {
 	Consensus string `json:"consensus,omitempty"`
 
 	// count
-	Count string `json:"count,omitempty"`
+	Count int64 `json:"count,omitempty"`
 
 	// name
 	Name string `json:"name,omitempty"`
