@@ -14,6 +14,7 @@ with open('../samples/python-input.json') as f:
 # n_orgs = args[1]
 # n_peer_org = args[2]
 peer_name = "peer"
+# TODO: Update to take value from json 
 network_name = ["byfn"]
 
 
