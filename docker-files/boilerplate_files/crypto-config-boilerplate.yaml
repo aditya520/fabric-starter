@@ -1,0 +1,15 @@
+
+OrdererOrgs:
+  - Name:
+    Domain:
+    Specs:
+      - Hostname: orderer
+
+PeerOrgs:
+  - Name:
+    Domain:
+    EnableNodeOUs:
+    Template:
+      Count:
+    Users:
+      Count:
