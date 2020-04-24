@@ -1,9 +1,9 @@
 
 OrdererOrgs:
-  - Name:
-    Domain:
+  - Name: Orderer
+    Domain: example.com
     Specs:
-      - Hostname: orderer
+      - Hostname: 
 
 PeerOrgs:
   - Name:
