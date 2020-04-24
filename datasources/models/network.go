@@ -11,7 +11,7 @@ type Object struct {
 	EPolicy *models.EPolicy `json:"e_policy,omitempty"`
 
 	// network
-	Organisation Organisation `json:"network,omitempty"`
+	Organisation Organisation `json:"organizations,omitempty"`
 }
 
 type Organisation struct {
