@@ -1,4 +1,4 @@
 .DS_Store
 go.sum
-fixtures/
 app
+test_network.json
