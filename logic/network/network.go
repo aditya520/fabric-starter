@@ -41,6 +41,7 @@ func CreateNetwork(networkObj *models.Object) (string, error) {
 	if err != nil {
 		return "", err
 	}
+	file.Close()
 
 	bytes, err := json.MarshalIndent(obj, "", "    ")
 
@@ -49,7 +50,6 @@ func CreateNetwork(networkObj *models.Object) (string, error) {
 		return "", nil
 	}
 
-	defer file.Close()
-
+	utils.RunScript(fileName)
 	return "Success", nil
 }
