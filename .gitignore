@@ -14,3 +14,5 @@ scripts/create_crypto_config.pyc
 scripts/create_configtx.pyc
 
 fixtures/*
+
+scripts/__pycache__/*
