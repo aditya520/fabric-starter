@@ -11,11 +11,13 @@
     "organizations": {
         "peerOrgs": [
             {
+                "name": "org1",
                 "url": "org1.example.com",
                 "count": 2,
                 "mspID": "Org1MSP"
             },
             {
+                "name": "org2",
                 "url": "org2.example.com",
                 "count": 2,
                 "mspID": "Org2MSP"
@@ -23,7 +25,7 @@
         ],
         "ordererOrg": {
             "url": [
-                "orderer0.example.com"
+                "orderer.example.com", "orderer2.example.com", "orderer3.example.com"
             ],
             "consensus": "solo",
             "mspID": "OrdererMSP"
