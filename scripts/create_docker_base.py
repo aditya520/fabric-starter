@@ -11,7 +11,7 @@ def create_base(jsonData):
     orderer_init_port = 7050
     peer_init_port = 7051
 
-    with open("../docker-files/boilerplate_files/docker-compose-base-boilerplate.yaml") as f:
+    with open("./docker-files/boilerplate_files/docker-compose-base-boilerplate.yaml") as f:
         base_doc = yaml.load(f)
 
     # print (base_doc)
@@ -73,5 +73,5 @@ def create_base(jsonData):
 
     base_doc["services"].update(services)
 
-    with open("../docker-files/final_files/base/docker-compose-base.yaml", "w+") as f:
+    with open("./docker-files/final_files/base/docker-compose-base.yaml", "w+") as f:
         yaml.safe_dump(base_doc, f)

@@ -4,11 +4,18 @@ import create_docker_cli as cli
 import create_configtx as configtx
 import create_crypto_config as crypto
 import json
+import os
+import sys
 
 
 
 ## Importing JSON ##
-with open('../samples/python-input.json') as f:
+
+path = sys.argv[1]
+print(path)
+sys.stdout.flush()
+
+with open(path) as f:
     jsonData = json.load(f)
 
 

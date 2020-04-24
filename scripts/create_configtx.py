@@ -46,7 +46,7 @@ def create_configtx(jsonData):
 
     yaml.SafeDumper.ignore_aliases = lambda *args: True
 
-    with open("../crypto-config/configtx-template.yaml") as f:
+    with open("./crypto-config/configtx-template.yaml") as f:
         list_doc = yaml.load(f)
 
     for org in jsonData["organizations"]["peerOrgs"]:
@@ -107,5 +107,5 @@ def create_configtx(jsonData):
     list_doc["Profiles"]["SampleMultiNodeEtcdRaft"]["Orderer"]["EtcdRaft"]["Consenters"] = ordrDetailsArr
     list_doc["Profiles"]["SampleMultiNodeEtcdRaft"]["Orderer"]["Addresses"] = ordrArr
 
-    with open("../crypto-config/final_files/configtx.yaml", "w+") as f:
+    with open("./crypto-config/final_files/configtx.yaml", "w+") as f:
         yaml.safe_dump(list_doc, f)

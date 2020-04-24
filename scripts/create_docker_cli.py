@@ -18,7 +18,7 @@ def create_docker_compose_cli(jsonData):
     yaml.SafeDumper.ignore_aliases = lambda *args: True
 
 
-    with open("../docker-files/boilerplate_files/docker-compose-cli-boilerplate.yaml") as f:
+    with open("./docker-files/boilerplate_files/docker-compose-cli-boilerplate.yaml") as f:
         list_doc = yaml.load(f)
 
     #### Networks ####
@@ -80,7 +80,7 @@ def create_docker_compose_cli(jsonData):
     # print (list_doc["services"])
 
 
-    with open("../docker-files/final_files/docker-compose-cli.yaml", "w+") as f:
+    with open("./docker-files/final_files/docker-compose-cli.yaml", "w+") as f:
         yaml.safe_dump(list_doc, f)
 
 
