@@ -1,5 +1,7 @@
 import yaml
 import json
+from marshmallow import pprint
+import copy
 
 yaml.SafeDumper.ignore_aliases = lambda *args: True
 
@@ -13,31 +15,34 @@ with open("../docker-files/boilerplate_files/crypto-config-boilerplate.yaml") as
 
 n_user = 1 # Hardocded for now
 
-peerOrgs = crypto_doc["PeerOrgs"]
 
-for i in range(0, len(jsonData["organizations"]["peerOrgs"])):
-    org = jsonData["organizations"]["peerOrgs"][i]["url"]
-    org_peer_count = int(jsonData["organizations"]["peerOrgs"][i]["count"])
+peerOrgsArr = []
+ordrArr = []
+for org in jsonData["organizations"]["peerOrgs"]:
+    peerOrgs = copy.deepcopy(crypto_doc["PeerOrgs"][0])
+    pprint(org["count"])
+    org_name = org["name"]
+    org_peer_count = org["count"]
+    org_url = org["url"]
 
-    if not "Name" in peerOrgs:
-        peerOrgs["Name"] = jsonData["channel"][0]["orgs"][i]
-    if not "Domain" in peerOrgs:
-        peerOrgs["Domain"] = org
-    if not "EnableNodeOUs" in peerOrgs:
-        peerOrgs["EnableNodeOUs"] = "true"
-    if not "Template" in peerOrgs:
-        peerOrgs["Template"] = {}
-        if not "Count" in peerOrgs["Template"]:
-            peerOrgs["Template"]["Count"] = org_peer_count
+    peerOrgs["Name"] = org_name.lower().capitalize()
+    peerOrgs["Domain"] = org_url
+    peerOrgs["EnableNodeOUs"] = True
+    peerOrgs["Template"]["Count"] = org_peer_count
+    peerOrgs["Users"]["Count"] = n_user
+    peerOrgsArr.append(peerOrgs)
 
-    if not "Users" in peerOrgs:
-        peerOrgs["Users"] = {}
-        if not "Count" in peerOrgs["Users"]:
-            peerOrgs["Users"]["Count"] = n_user
+for ordr in jsonData["organizations"]["ordererOrg"]["url"]:
+    ordrSpec = copy.deepcopy(crypto_doc["OrdererOrgs"][0]["Specs"][0])
+    ordrSpec["Hostname"] = ordr.split(".")[0]
+    ordrArr.append(ordrSpec)
 
+pprint(peerOrgsArr)
+pprint(ordrArr)
+crypto_doc["PeerOrgs"]=peerOrgsArr
 
-crypto_doc["PeerOrgs"].update(peerOrgs)
+crypto_doc["OrdererOrgs"][0]["Specs"] = ordrArr
 
-with open("../crypto-config/crypto-config.yaml", "w") as f:
+with open("../crypto-config/final_files/crypto-config.yaml", "w") as f:
         yaml.safe_dump(crypto_doc, f)
 
