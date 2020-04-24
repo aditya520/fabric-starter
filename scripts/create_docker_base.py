@@ -73,5 +73,5 @@ def create_base(jsonData):
 
     base_doc["services"].update(services)
 
-    with open("../docker-files/final_files/base/docker-compose-base.yaml", "w") as f:
+    with open("../docker-files/final_files/base/docker-compose-base.yaml", "w+") as f:
         yaml.safe_dump(base_doc, f)
