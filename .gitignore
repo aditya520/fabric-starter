@@ -2,3 +2,4 @@
 go.sum
 app
 test_network.json
+.vscode
