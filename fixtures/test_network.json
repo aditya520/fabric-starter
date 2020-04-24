@@ -27,14 +27,16 @@
             ]
         }
     },
-    "network": {
+    "organizations": {
         "peerOrgs": [
             {
+                "name": "org1",
                 "url": "org1.example.com",
                 "count": 2,
                 "mspID": "Org1MSP"
             },
             {
+                "name": "org2",
                 "url": "org2.example.com",
                 "count": 2,
                 "mspID": "Org2MSP"
