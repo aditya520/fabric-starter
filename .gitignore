@@ -12,3 +12,6 @@ docker-files/final_files/base/docker-compose-base.yaml
 scripts/create_docker_base.pyc
 scripts/create_crypto_config.pyc
 scripts/create_configtx.pyc
+fixtures/test_network.json
+
+scripts/__pycache__/*
