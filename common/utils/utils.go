@@ -1,11 +1,15 @@
 package utils
 
 import (
+	"bufio"
 	"encoding/json"
 	"errors"
+	"fmt"
+	"io"
 	"io/ioutil"
 	"net/url"
 	"os"
+	"os/exec"
 	"path/filepath"
 	"reflect"
 	"strconv"
@@ -191,4 +195,32 @@ func WriteFile(fileName string, bytes []byte) error {
 	}
 
 	return nil
+}
+
+// RunScript runs the python script
+func RunScript() {
+	cmd := exec.Command("python", "./scripts/script.py")
+	stdout, err := cmd.StdoutPipe()
+	if err != nil {
+		panic(err)
+	}
+	stderr, err := cmd.StderrPipe()
+	if err != nil {
+		panic(err)
+	}
+	err = cmd.Start()
+	if err != nil {
+		panic(err)
+	}
+
+	go copyOutput(stdout)
+	go copyOutput(stderr)
+	cmd.Wait()
+}
+
+func copyOutput(r io.Reader) {
+	scanner := bufio.NewScanner(r)
+	for scanner.Scan() {
+		fmt.Println(scanner.Text())
+	}
 }
