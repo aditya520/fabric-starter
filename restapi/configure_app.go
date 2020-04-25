@@ -15,6 +15,7 @@ import (
 	"fabric_starter/models"
 	"fabric_starter/restapi/operations"
 	"fabric_starter/restapi/operations/network"
+	"fabric_starter/restapi/operations/org"
 
 	networkLogic "fabric_starter/logic/network"
 )
@@ -54,6 +55,22 @@ func configureAPI(api *operations.AppAPI) http.Handler {
 
 		return network.NewCreateOK().WithPayload(msg)
 
+	})
+
+	api.OrgAddHandler = org.AddHandlerFunc(func(params org.AddParams) middleware.Responder {
+		api.Logger("Endpoint path: " + utils.AsJSON(params.HTTPRequest.RequestURI))
+		api.Logger("Endpoint params: " + utils.AsJSON(params))
+
+		msg, err := networkLogic.AddOrg(params.Body)
+		if err != nil {
+			errorMsg := err.Error()
+			return org.NewAddDefault(400).WithPayload(&models.Error{
+				Code:    400,
+				Message: &errorMsg,
+			})
+		}
+
+		return org.NewAddOK().WithPayload(msg)
 	})
 
 	api.PreServerShutdown = func() {}

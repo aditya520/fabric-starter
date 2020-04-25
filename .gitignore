@@ -1,30 +1,27 @@
+Misc
 .DS_Store
 go.sum
 app
-test_network.json
 .vscode
 
-scripts/create_docker_cli.pyc
-crypto-config/final_files/configtx.yaml
-crypto-config/final_files/crypto-config.yaml
-
-docker-files/final_files/docker-compose-cli.yaml
-docker-files/final_files/base/docker-compose-base.yaml
+Python Stuff
 scripts/create_docker_base.pyc
 scripts/create_crypto_config.pyc
 scripts/create_configtx.pyc
+scripts/__pycache__/*
+scripts/create_docker_cli.pyc
 
+Output Files
 fixtures/*
 
-scripts/__pycache__/*
+Executables
+bin/*
 
-docker-files/original_files/*
+Network Artifacts Files
+network/channel-artifacts/*
+network/crypto-config/*
+network/configtx.yaml
+network/crypto-config.yaml
+network/docker-compose-cli.yaml
+network/base/*
 
-
-channel-artifacts/genesis.block
-crypto-config/peerOrganizations/
-crypto-config/ordererOrganizations/
-network/crypto-config/
-network/channel-artifacts/
-
-bin/

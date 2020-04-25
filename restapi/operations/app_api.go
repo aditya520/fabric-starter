@@ -20,6 +20,7 @@ import (
 	"github.com/go-openapi/swag"
 
 	"fabric_starter/restapi/operations/network"
+	"fabric_starter/restapi/operations/org"
 )
 
 // NewAppAPI creates a new App instance
@@ -40,6 +41,9 @@ func NewAppAPI(spec *loads.Document) *AppAPI {
 		BearerAuthenticator: security.BearerAuth,
 		JSONConsumer:        runtime.JSONConsumer(),
 		JSONProducer:        runtime.JSONProducer(),
+		OrgAddHandler: org.AddHandlerFunc(func(params org.AddParams) middleware.Responder {
+			return middleware.NotImplemented("operation org.Add has not yet been implemented")
+		}),
 		NetworkCreateHandler: network.CreateHandlerFunc(func(params network.CreateParams) middleware.Responder {
 			return middleware.NotImplemented("operation network.Create has not yet been implemented")
 		}),
@@ -74,6 +78,8 @@ type AppAPI struct {
 	//   - application/json
 	JSONProducer runtime.Producer
 
+	// OrgAddHandler sets the operation handler for the add operation
+	OrgAddHandler org.AddHandler
 	// NetworkCreateHandler sets the operation handler for the create operation
 	NetworkCreateHandler network.CreateHandler
 	// ServeError is called when an error is received, there is a default handler
@@ -140,6 +146,10 @@ func (o *AppAPI) Validate() error {
 
 	if o.JSONProducer == nil {
 		unregistered = append(unregistered, "JSONProducer")
+	}
+
+	if o.OrgAddHandler == nil {
+		unregistered = append(unregistered, "Org.AddHandler")
 	}
 
 	if o.NetworkCreateHandler == nil {
@@ -237,6 +247,11 @@ func (o *AppAPI) initHandlerCache() {
 	if o.handlers == nil {
 		o.handlers = make(map[string]map[string]http.Handler)
 	}
+
+	if o.handlers["POST"] == nil {
+		o.handlers["POST"] = make(map[string]http.Handler)
+	}
+	o.handlers["POST"]["/org/add"] = org.NewAdd(o.context, o.OrgAddHandler)
 
 	if o.handlers["POST"] == nil {
 		o.handlers["POST"] = make(map[string]http.Handler)

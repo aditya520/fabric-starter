@@ -15,19 +15,19 @@ type Object struct {
 }
 
 type Organisation struct {
-	PeerOrg    []PeerOrg  `json:"peerOrgs"`
-	OrdererOrg OrdererOrg `json:"ordererOrg"`
+	PeerOrg    []PeerOrg  `json:"peerOrgs,omitempty"`
+	OrdererOrg OrdererOrg `json:"ordererOrg,omitempty"`
 }
 
 type PeerOrg struct {
-	Name  string `json:"name"`
-	URL   string `json:"url"`
-	Count int    `json:"count"`
-	MspID string `json:"mspID"`
+	Name  string `json:"name,omitempty"`
+	URL   string `json:"url,omitempty"`
+	Count int    `json:"count,omitempty"`
+	MspID string `json:"mspID,omitempty"`
 }
 
 type OrdererOrg struct {
-	URL       []string `json:"url"`
-	Consensus string   `json:"consensus"`
-	MspID     string   `json:"mspID"`
+	URL       []string `json:"url,omitempty"`
+	Consensus string   `json:"consensus,omitempty"`
+	MspID     string   `json:"mspID,omitempty"`
 }
