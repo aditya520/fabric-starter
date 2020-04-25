@@ -67,6 +67,38 @@ func init() {
           }
         }
       }
+    },
+    "/org/add": {
+      "post": {
+        "tags": [
+          "org"
+        ],
+        "operationId": "add",
+        "parameters": [
+          {
+            "description": "Network configuration",
+            "name": "body",
+            "in": "body",
+            "schema": {
+              "$ref": "#/definitions/extraOrg"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Successful org addition",
+            "schema": {
+              "type": "string"
+            }
+          },
+          "default": {
+            "description": "Error",
+            "schema": {
+              "$ref": "#/definitions/error"
+            }
+          }
+        }
+      }
     }
   },
   "definitions": {
@@ -122,6 +154,17 @@ func init() {
         "message": {
           "type": "string",
           "minLength": 1
+        }
+      }
+    },
+    "extraOrg": {
+      "type": "object",
+      "properties": {
+        "channelName": {
+          "type": "string"
+        },
+        "org": {
+          "$ref": "#/definitions/orgs"
         }
       }
     },
@@ -249,6 +292,38 @@ func init() {
           }
         }
       }
+    },
+    "/org/add": {
+      "post": {
+        "tags": [
+          "org"
+        ],
+        "operationId": "add",
+        "parameters": [
+          {
+            "description": "Network configuration",
+            "name": "body",
+            "in": "body",
+            "schema": {
+              "$ref": "#/definitions/extraOrg"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Successful org addition",
+            "schema": {
+              "type": "string"
+            }
+          },
+          "default": {
+            "description": "Error",
+            "schema": {
+              "$ref": "#/definitions/error"
+            }
+          }
+        }
+      }
     }
   },
   "definitions": {
@@ -318,6 +393,17 @@ func init() {
         "message": {
           "type": "string",
           "minLength": 1
+        }
+      }
+    },
+    "extraOrg": {
+      "type": "object",
+      "properties": {
+        "channelName": {
+          "type": "string"
+        },
+        "org": {
+          "$ref": "#/definitions/orgs"
         }
       }
     },

@@ -7,6 +7,8 @@ import (
 	"fabric_starter/models"
 	"strconv"
 	"strings"
+
+	log "github.com/sirupsen/logrus"
 )
 
 func CreateNetwork(networkObj *models.Object) (string, error) {
@@ -57,6 +59,25 @@ func CreateNetwork(networkObj *models.Object) (string, error) {
 	err = utils.RunScript(fileName)
 	if err != nil {
 		return "", nil
+	}
+	return "Success", nil
+}
+
+func AddOrg(extraOrg *models.ExtraOrg) (string, error) {
+	fileName := "fixtures/add" + strings.Title(strings.ToLower(extraOrg.Org.Name)) + strings.Title(strings.ToLower(extraOrg.ChannelName)) + ".json"
+	log.Printf("FileName: ", fileName)
+
+	file, err := utils.CreateFile(fileName)
+	if err != nil {
+		return "", err
+	}
+	file.Close()
+
+	bytes, err := json.MarshalIndent(extraOrg, "", "    ")
+
+	err = utils.WriteFile(fileName, bytes)
+	if err != nil {
+		return "", err
 	}
 	return "Success", nil
 }
