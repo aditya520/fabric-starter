@@ -2,8 +2,6 @@ import pyaml
 import json
 import copy
 
-#pyaml.SafeDumper.ignore_aliases = lambda *args: True
-
 def create_base(jsonData):
     
     peerService = create_peer_base(jsonData)

@@ -2,8 +2,8 @@ import os
 import sys
 import yaml
 import json
-from marshmallow import pprint
 import copy
+import pyaml
 
 def add_quote(a):
     return '"{0}"'.format(a)
@@ -107,4 +107,4 @@ def create_configtx(jsonData):
     list_doc["Profiles"]["SampleMultiNodeEtcdRaft"]["Orderer"]["Addresses"] = ordrArr
 
     with open("./crypto-config/final_files/configtx.yaml", "w+") as f:
-        yaml.safe_dump(list_doc, f)
+        pyaml.dump(list_doc, f, vspacing=[2, 1])

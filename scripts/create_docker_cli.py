@@ -1,8 +1,9 @@
 
 import os
 import sys
-import yaml
+import pyaml
 import json
+import yaml
 
 
 def create_docker_compose_cli(jsonData):
@@ -12,11 +13,6 @@ def create_docker_compose_cli(jsonData):
     peer_name = "peer"
     # TODO: Update to take value from json 
     network_name = ["byfn"]
-
-
-    # yaml.Dumper.ignore_aliases = lambda *args : True
-    yaml.SafeDumper.ignore_aliases = lambda *args: True
-
 
     with open("./docker-files/boilerplate_files/docker-compose-cli-boilerplate.yaml") as f:
         list_doc = yaml.load(f)
@@ -81,8 +77,6 @@ def create_docker_compose_cli(jsonData):
 
 
     with open("./docker-files/final_files/docker-compose-cli.yaml", "w+") as f:
-        yaml.safe_dump(list_doc, f)
-
-
+        pyaml.dump(list_doc, f, vspacing=[2, 1])
 
     # print (list_doc)

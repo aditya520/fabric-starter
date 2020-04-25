@@ -1,7 +1,7 @@
 import yaml
 import json
-from marshmallow import pprint
 import copy
+import pyaml
 
 yaml.SafeDumper.ignore_aliases = lambda *args: True
 
@@ -41,5 +41,5 @@ def create_crypto(jsonData):
     crypto_doc["OrdererOrgs"][0]["Specs"] = ordrArr
 
     with open("./crypto-config/final_files/crypto-config.yaml", "w+") as f:
-            yaml.safe_dump(crypto_doc, f)
+            pyaml.dump(crypto_doc, f, vspacing=[2, 1])
 
