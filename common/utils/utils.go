@@ -198,8 +198,8 @@ func WriteFile(fileName string, bytes []byte) error {
 }
 
 // RunScript runs the python script
-func RunScript(args string) error {
-	cmd := exec.Command("python3", "./scripts/main.py", args)
+func RunScript(script string, args string) error {
+	cmd := exec.Command("python3", "./scripts/"+script, args)
 	stdout, err := cmd.StdoutPipe()
 	if err != nil {
 		return err
