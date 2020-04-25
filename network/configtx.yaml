@@ -1,0 +1,356 @@
+Application:
+
+  Capabilities:
+    V2_0: true
+
+  Organizations:
+
+  Policies:
+    Admins:
+      Rule: 'MAJORITY Admins'
+      Type: ImplicitMeta
+    Endorsement:
+      Rule: 'MAJORITY Endorsement'
+      Type: ImplicitMeta
+    LifecycleEndorsement:
+      Rule: 'MAJORITY Endorsement'
+      Type: ImplicitMeta
+    Readers:
+      Rule: 'ANY Readers'
+      Type: ImplicitMeta
+    Writers:
+      Rule: 'ANY Writers'
+      Type: ImplicitMeta
+
+
+Capabilities:
+
+  Application:
+    V2_0: true
+
+  Channel:
+    V2_0: true
+
+  Orderer:
+    V2_0: true
+
+
+Channel:
+
+  Capabilities:
+    V2_0: true
+
+  Policies:
+    Admins:
+      Rule: 'MAJORITY Admins'
+      Type: ImplicitMeta
+    Readers:
+      Rule: 'ANY Readers'
+      Type: ImplicitMeta
+    Writers:
+      Rule: 'ANY Writers'
+      Type: ImplicitMeta
+
+
+Orderer:
+
+  Addresses:
+    - orderer0.example.com:7050
+
+  BatchSize:
+    AbsoluteMaxBytes: '99 MB'
+    MaxMessageCount: 10
+    PreferredMaxBytes: '512 KB'
+
+  BatchTimeout: 2s
+
+  OrdererType: etcdraft
+
+  Organizations:
+
+  Policies:
+    Admins:
+      Rule: 'MAJORITY Admins'
+      Type: ImplicitMeta
+    BlockValidation:
+      Rule: 'ANY Writers'
+      Type: ImplicitMeta
+    Readers:
+      Rule: 'ANY Readers'
+      Type: ImplicitMeta
+    Writers:
+      Rule: 'ANY Writers'
+      Type: ImplicitMeta
+
+
+Organizations:
+
+  - ID: OrdererMSP
+    MSPDir: crypto-config/ordererOrganizations/example.com/msp
+    Name: OrdererOrg
+    Policies:
+      Admins:
+        Rule: OR('OrdererMSP.admin')
+        Type: Signature
+      Readers:
+        Rule: OR('OrdererMSP.member')
+        Type: Signature
+      Writers:
+        Rule: OR('OrdererMSP.member')
+        Type: Signature
+
+
+Profiles:
+
+  SampleMultiNodeEtcdRaft:
+    Application:
+      Capabilities:
+        V2_0: true
+      Organizations:
+        - ID: OrdererMSP
+          MSPDir: crypto-config/ordererOrganizations/example.com/msp
+          Name: OrdererOrg
+          Policies:
+            Admins:
+              Rule: OR('OrdererMSP.admin')
+              Type: Signature
+            Readers:
+              Rule: OR('OrdererMSP.member')
+              Type: Signature
+            Writers:
+              Rule: OR('OrdererMSP.member')
+              Type: Signature
+      Policies:
+        Admins:
+          Rule: 'MAJORITY Admins'
+          Type: ImplicitMeta
+        Endorsement:
+          Rule: 'MAJORITY Endorsement'
+          Type: ImplicitMeta
+        LifecycleEndorsement:
+          Rule: 'MAJORITY Endorsement'
+          Type: ImplicitMeta
+        Readers:
+          Rule: 'ANY Readers'
+          Type: ImplicitMeta
+        Writers:
+          Rule: 'ANY Writers'
+          Type: ImplicitMeta
+    Capabilities:
+      V2_0: true
+    Consortiums:
+      SampleConsortium:
+        Organizations:
+          - AnchorPeers:
+              - Host: peer0.org1.example.com
+                Port: 7051
+            ID: Org1MSP
+            MSPDir: crypto-config/peerOrganizations/org1.example.com/msp
+            Name: Org1MSP
+            Policies:
+              Admins:
+                Rule: 'OR("Org1MSP.admin" )'
+                Type: Signature
+              Endorsement:
+                Rule: 'OR("Org1MSP.peer" )'
+                Type: Signature
+              Readers:
+                Rule: 'OR("Org1MSP.admin", "Org1MSP.peer", "Org1MSP.client" )'
+                Type: Signature
+              Writers:
+                Rule: 'OR("Org1MSP.admin", "Org1MSP.client" )'
+                Type: Signature
+          - AnchorPeers:
+              - Host: peer0.org2.example.com
+                Port: 9051
+            ID: Org2MSP
+            MSPDir: crypto-config/peerOrganizations/org2.example.com/msp
+            Name: Org2MSP
+            Policies:
+              Admins:
+                Rule: 'OR("Org2MSP.admin" )'
+                Type: Signature
+              Endorsement:
+                Rule: 'OR("Org2MSP.peer" )'
+                Type: Signature
+              Readers:
+                Rule: 'OR("Org2MSP.admin", "Org2MSP.peer", "Org2MSP.client" )'
+                Type: Signature
+              Writers:
+                Rule: 'OR("Org2MSP.admin", "Org2MSP.client" )'
+                Type: Signature
+          - AnchorPeers:
+              - Host: peer0.org3.example.com
+                Port: 11051
+            ID: Org3MSP
+            MSPDir: crypto-config/peerOrganizations/org3.example.com/msp
+            Name: Org3MSP
+            Policies:
+              Admins:
+                Rule: 'OR("Org3MSP.admin" )'
+                Type: Signature
+              Endorsement:
+                Rule: 'OR("Org3MSP.peer" )'
+                Type: Signature
+              Readers:
+                Rule: 'OR("Org3MSP.admin", "Org3MSP.peer", "Org3MSP.client" )'
+                Type: Signature
+              Writers:
+                Rule: 'OR("Org3MSP.admin", "Org3MSP.client" )'
+                Type: Signature
+    Orderer:
+      Addresses:
+        - orderer0.example.com:7050
+        - orderer1.example.com:8050
+        - orderer2.example.com:9050
+      BatchSize:
+        AbsoluteMaxBytes: '99 MB'
+        MaxMessageCount: 10
+        PreferredMaxBytes: '512 KB'
+      BatchTimeout: 2s
+      Capabilities:
+        V2_0: true
+      EtcdRaft:
+        Consenters:
+          - ClientTLSCert: crypto-config/ordererOrganizations/example.com/orderers/orderer0.example.com/tls/server.crt
+            Host: orderer0.example.com
+            Port: 7050
+            ServerTLSCert: crypto-config/ordererOrganizations/example.com/orderers/orderer0.example.com/tls/server.crt
+          - ClientTLSCert: crypto-config/ordererOrganizations/example.com/orderers/orderer1.example.com/tls/server.crt
+            Host: orderer1.example.com
+            Port: 8050
+            ServerTLSCert: crypto-config/ordererOrganizations/example.com/orderers/orderer1.example.com/tls/server.crt
+          - ClientTLSCert: crypto-config/ordererOrganizations/example.com/orderers/orderer2.example.com/tls/server.crt
+            Host: orderer2.example.com
+            Port: 9050
+            ServerTLSCert: crypto-config/ordererOrganizations/example.com/orderers/orderer2.example.com/tls/server.crt
+      OrdererType: etcdraft
+      Organizations:
+        - ID: OrdererMSP
+          MSPDir: crypto-config/ordererOrganizations/example.com/msp
+          Name: OrdererOrg
+          Policies:
+            Admins:
+              Rule: OR('OrdererMSP.admin')
+              Type: Signature
+            Readers:
+              Rule: OR('OrdererMSP.member')
+              Type: Signature
+            Writers:
+              Rule: OR('OrdererMSP.member')
+              Type: Signature
+      Policies:
+        Admins:
+          Rule: 'MAJORITY Admins'
+          Type: ImplicitMeta
+        BlockValidation:
+          Rule: 'ANY Writers'
+          Type: ImplicitMeta
+        Readers:
+          Rule: 'ANY Readers'
+          Type: ImplicitMeta
+        Writers:
+          Rule: 'ANY Writers'
+          Type: ImplicitMeta
+    Policies:
+      Admins:
+        Rule: 'MAJORITY Admins'
+        Type: ImplicitMeta
+      Readers:
+        Rule: 'ANY Readers'
+        Type: ImplicitMeta
+      Writers:
+        Rule: 'ANY Writers'
+        Type: ImplicitMeta
+
+  TwoOrgsChannel:
+    Application:
+      Capabilities:
+        V2_0: true
+      Organizations:
+        - AnchorPeers:
+            - Host: peer0.org1.example.com
+              Port: 7051
+          ID: Org1MSP
+          MSPDir: crypto-config/peerOrganizations/org1.example.com/msp
+          Name: Org1MSP
+          Policies:
+            Admins:
+              Rule: 'OR("Org1MSP.admin" )'
+              Type: Signature
+            Endorsement:
+              Rule: 'OR("Org1MSP.peer" )'
+              Type: Signature
+            Readers:
+              Rule: 'OR("Org1MSP.admin", "Org1MSP.peer", "Org1MSP.client" )'
+              Type: Signature
+            Writers:
+              Rule: 'OR("Org1MSP.admin", "Org1MSP.client" )'
+              Type: Signature
+        - AnchorPeers:
+            - Host: peer0.org2.example.com
+              Port: 9051
+          ID: Org2MSP
+          MSPDir: crypto-config/peerOrganizations/org2.example.com/msp
+          Name: Org2MSP
+          Policies:
+            Admins:
+              Rule: 'OR("Org2MSP.admin" )'
+              Type: Signature
+            Endorsement:
+              Rule: 'OR("Org2MSP.peer" )'
+              Type: Signature
+            Readers:
+              Rule: 'OR("Org2MSP.admin", "Org2MSP.peer", "Org2MSP.client" )'
+              Type: Signature
+            Writers:
+              Rule: 'OR("Org2MSP.admin", "Org2MSP.client" )'
+              Type: Signature
+        - AnchorPeers:
+            - Host: peer0.org3.example.com
+              Port: 11051
+          ID: Org3MSP
+          MSPDir: crypto-config/peerOrganizations/org3.example.com/msp
+          Name: Org3MSP
+          Policies:
+            Admins:
+              Rule: 'OR("Org3MSP.admin" )'
+              Type: Signature
+            Endorsement:
+              Rule: 'OR("Org3MSP.peer" )'
+              Type: Signature
+            Readers:
+              Rule: 'OR("Org3MSP.admin", "Org3MSP.peer", "Org3MSP.client" )'
+              Type: Signature
+            Writers:
+              Rule: 'OR("Org3MSP.admin", "Org3MSP.client" )'
+              Type: Signature
+      Policies:
+        Admins:
+          Rule: 'MAJORITY Admins'
+          Type: ImplicitMeta
+        Endorsement:
+          Rule: 'MAJORITY Endorsement'
+          Type: ImplicitMeta
+        LifecycleEndorsement:
+          Rule: 'MAJORITY Endorsement'
+          Type: ImplicitMeta
+        Readers:
+          Rule: 'ANY Readers'
+          Type: ImplicitMeta
+        Writers:
+          Rule: 'ANY Writers'
+          Type: ImplicitMeta
+    Capabilities:
+      V2_0: true
+    Consortium: SampleConsortium
+    Policies:
+      Admins:
+        Rule: 'MAJORITY Admins'
+        Type: ImplicitMeta
+      Readers:
+        Rule: 'ANY Readers'
+        Type: ImplicitMeta
+      Writers:
+        Rule: 'ANY Writers'
+        Type: ImplicitMeta

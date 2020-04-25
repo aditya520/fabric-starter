@@ -8,7 +8,6 @@ scripts/create_docker_cli.pyc
 crypto-config/final_files/configtx.yaml
 crypto-config/final_files/crypto-config.yaml
 
-configtx.yaml
 docker-files/final_files/docker-compose-cli.yaml
 docker-files/final_files/base/docker-compose-base.yaml
 scripts/create_docker_base.pyc
