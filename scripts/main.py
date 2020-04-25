@@ -27,7 +27,7 @@ crypto.create_crypto(jsonData)
 configtx.create_configtx(jsonData)
 
 ## Docker base ##
-base.create_base(jsonData)
+base.create_peer_base(jsonData)
 
 
 ## Docker CLI ##

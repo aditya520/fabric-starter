@@ -7,7 +7,7 @@ yaml.SafeDumper.ignore_aliases = lambda *args: True
 
 
 
-def create_base(jsonData):
+def create_peer_base(jsonData):
     orderer_init_port = 7050
     peer_init_port = 7051
 
@@ -28,11 +28,14 @@ def create_base(jsonData):
     org_peer_count = []
 
     services = base_doc["services"]
-
+    
     for i in range(0, len(jsonData["organizations"]["peerOrgs"])):
         org = jsonData["organizations"]["peerOrgs"][i]["url"]
         org_mspID.append(jsonData["organizations"]["peerOrgs"][i]["mspID"])
         org_peer_count.append(int(jsonData["organizations"]["peerOrgs"][i]["count"]))
+        bootstrap_peer_count = 0
+        if i != 0:
+            bootstrap_peer_count = org_peer_count[i-1]
 
         for peer in range(0, int(jsonData["organizations"]["peerOrgs"][i]["count"])):
             orgName = peer_name + str(peer) + "." + org
@@ -51,11 +54,17 @@ def create_base(jsonData):
                 if not "service" in services[orgName]["extends"]:
                     services[orgName]["extends"]["service"] = "peer-base"
             if not "environment" in services[orgName]:
-                services[orgName]["environment"] = [
-                "CORE_PEER_ID=" + orgName, "CORE_PEER_ADDRESS=" + orgNameWithPort, "CORE_PEER_LISTENADDRESS=0.0.0.0:" + str(peer_init_port),
-                "CORE_PEER_CHAINCODEADDRESS=" + orgName + ":" + str(peer_init_port + 1), "CORE_PEER_CHAINCODELISTENADDRESS=0.0.0.0:" + str(peer_init_port + 1),
-                "CORE_PEER_GOSSIP_BOOTSTRAP=" + orgNameWithPort, "CORE_PEER_GOSSIP_EXTERNALENDPOINT=" + orgNameWithPort,"CORE_PEER_LOCALMSPID=" + org_mspID[i]
-            ]
+                if peer == 0:
+                    services[orgName]["environment"] = [
+                    "CORE_PEER_ID=" + orgName, "CORE_PEER_ADDRESS=" + orgNameWithPort, "CORE_PEER_LISTENADDRESS=0.0.0.0:" + str(peer_init_port),
+                    "CORE_PEER_CHAINCODEADDRESS=" + orgName + ":" + str(peer_init_port + 1), "CORE_PEER_CHAINCODELISTENADDRESS=0.0.0.0:" + str(peer_init_port + 1),
+                    "CORE_PEER_GOSSIP_BOOTSTRAP=" + "peer1." + jsonData["organizations"]["peerOrgs"][i]["url"] + ":" + str(peer_init_port + 1000), "CORE_PEER_GOSSIP_EXTERNALENDPOINT=" + orgNameWithPort,"CORE_PEER_LOCALMSPID=" + org_mspID[i]]
+                else:
+                    services[orgName]["environment"] = [
+                    "CORE_PEER_ID=" + orgName, "CORE_PEER_ADDRESS=" + orgNameWithPort, "CORE_PEER_LISTENADDRESS=0.0.0.0:" + str(peer_init_port),
+                    "CORE_PEER_CHAINCODEADDRESS=" + orgName + ":" + str(peer_init_port + 1), "CORE_PEER_CHAINCODELISTENADDRESS=0.0.0.0:" + str(peer_init_port + 1),
+                    "CORE_PEER_GOSSIP_BOOTSTRAP=" + org_final_name_withPort[bootstrap_peer_count], "CORE_PEER_GOSSIP_EXTERNALENDPOINT=" + orgNameWithPort,"CORE_PEER_LOCALMSPID=" + org_mspID[i]
+                    ]
             if not "volumes" in services[orgName]:
                 services[orgName]["volumes"] = [
                 "/var/run/:/host/var/run/",
