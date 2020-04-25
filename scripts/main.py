@@ -1,4 +1,3 @@
-from subprocess import call
 import create_docker_base as base
 import create_docker_cli as cli
 import create_configtx as configtx
