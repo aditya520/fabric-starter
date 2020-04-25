@@ -7,8 +7,7 @@ test_network.json
 scripts/create_docker_cli.pyc
 crypto-config/final_files/configtx.yaml
 crypto-config/final_files/crypto-config.yaml
-crypto-config/final_files/ordererOrganizations
-crypto-config/final_files/peerOrganizations
+
 configtx.yaml
 docker-files/final_files/docker-compose-cli.yaml
 docker-files/final_files/base/docker-compose-base.yaml
@@ -23,3 +22,6 @@ scripts/__pycache__/*
 docker-files/original_files/*
 
 
+channel-artifacts/genesis.block
+crypto-config/peerOrganizations/
+crypto-config/ordererOrganizations/
