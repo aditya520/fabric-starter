@@ -18,6 +18,9 @@ type ExtraOrg struct {
 	// channel name
 	ChannelName string `json:"channelName,omitempty"`
 
+	// name
+	Name string `json:"name,omitempty"`
+
 	// org
 	Org *Orgs `json:"org,omitempty"`
 }
