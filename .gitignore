@@ -20,7 +20,7 @@ scripts/__pycache__/*
 
 docker-files/original_files/*
 
+network/channel-artifacts/*
+network/crypto-config/*
 
-channel-artifacts/genesis.block
-crypto-config/peerOrganizations/
-crypto-config/ordererOrganizations/
+bin/*
