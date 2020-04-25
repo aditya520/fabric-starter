@@ -56,7 +56,7 @@ func CreateNetwork(networkObj *models.Object) (string, error) {
 		return "", nil
 	}
 
-	err = utils.RunScript(fileName)
+	err = utils.RunScript("main.py", fileName)
 	if err != nil {
 		return "", nil
 	}
@@ -64,7 +64,11 @@ func CreateNetwork(networkObj *models.Object) (string, error) {
 }
 
 func AddOrg(extraOrg *models.ExtraOrg) (string, error) {
-	fileName := "fixtures/add" + strings.Title(strings.ToLower(extraOrg.Org.Name)) + strings.Title(strings.ToLower(extraOrg.ChannelName)) + ".json"
+
+	var extraOrgObj fileModels.ExtraOrg
+	domain := ".example.com"
+	fileName := "fixtures/add" + strings.Title(strings.ToLower(extraOrg.Org.Name)) + strings.Title(strings.ToLower(extraOrg.Name)) + ".json"
+
 	log.Printf("FileName: ", fileName)
 
 	file, err := utils.CreateFile(fileName)
@@ -73,11 +77,29 @@ func AddOrg(extraOrg *models.ExtraOrg) (string, error) {
 	}
 	file.Close()
 
-	bytes, err := json.MarshalIndent(extraOrg, "", "    ")
+	count, _ := strconv.Atoi(extraOrg.Org.NoOfPeers)
+	peerOrg := fileModels.PeerOrg{
+		Name:  extraOrg.Org.Name,
+		Count: count,
+		MspID: strings.Title(strings.ToLower(extraOrg.Org.Name)) + "MSP",
+		URL:   extraOrg.Org.Name + domain,
+	}
+
+	extraOrgObj.Name = extraOrg.Name
+	extraOrgObj.ChannelName = extraOrg.ChannelName
+	extraOrgObj.Organisation.PeerOrg = append(extraOrgObj.Organisation.PeerOrg, peerOrg)
+
+	bytes, err := json.MarshalIndent(extraOrgObj, "", "    ")
 
 	err = utils.WriteFile(fileName, bytes)
 	if err != nil {
 		return "", err
 	}
+
+	err = utils.RunScript("addOrg.py", fileName)
+	if err != nil {
+		return "", nil
+	}
+
 	return "Success", nil
 }
