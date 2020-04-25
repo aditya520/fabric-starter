@@ -7,7 +7,7 @@ yaml.SafeDumper.ignore_aliases = lambda *args: True
 
 
 
-def create_peer_base(jsonData):
+def create_base(jsonData):
     orderer_init_port = 7050
     peer_init_port = 7051
 
@@ -84,3 +84,4 @@ def create_peer_base(jsonData):
 
     with open("./docker-files/final_files/base/docker-compose-base.yaml", "w+") as f:
         yaml.safe_dump(base_doc, f)
+
