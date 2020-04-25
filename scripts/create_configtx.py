@@ -93,7 +93,6 @@ def create_configtx(jsonData):
 
     for ordr in jsonData["organizations"]["ordererOrg"]["url"]:
         address = ordr+":"+ str(ordrPort)
-        print(address)
         ordrArr.append(address)
         ordrDetails = copy.deepcopy(ordrDict)
         ordrDetails["Host"] = ordr
