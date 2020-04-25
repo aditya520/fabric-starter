@@ -18,6 +18,7 @@ def create_docker_compose_cli(jsonData):
         list_doc = yaml.load(f)
 
     #### Networks ####
+    list_doc["version"] = "'" + str(2) + "'"
 
     networks = dict.fromkeys(network_name,)
     list_doc["networks"] = networks
@@ -32,7 +33,7 @@ def create_docker_compose_cli(jsonData):
     ### ORG Volumes ###
     for i in range(0, len(jsonData["organizations"]["peerOrgs"])):
         org = jsonData["organizations"]["peerOrgs"][i]["url"]
-        for peer in range(0, int(jsonData["organizations"]["peerOrgs"][0]["count"])):
+        for peer in range(0, int(jsonData["organizations"]["peerOrgs"][i]["count"])):
             orgName = peer_name + str(peer) + "." + org
             org_final_name.append(orgName)
 

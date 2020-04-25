@@ -8,12 +8,13 @@ def create_base(jsonData):
     
     ordrService = create_ordr_base(jsonData)
 
-    services = {
+    base = {
+        "version" : "'" + str(2) + "'",
         "services": {**ordrService,**peerService}
     }
     
     with open("./docker-files/final_files/base/docker-compose-base.yaml", "w+") as f:
-        pyaml.dump(services, f, vspacing=[2, 1])
+        pyaml.dump(base, f, vspacing=[2, 1])
 
 
 def create_ordr_base(jsonData):
@@ -26,7 +27,7 @@ def create_ordr_base(jsonData):
     for ordr in jsonData["organizations"]["ordererOrg"]["url"]:
        services[ordr] = {
            "extends":{
-               "file": "base/peer-base.yaml",
+               "file": "peer-base.yaml",
                "service": "orderer-base"
            },
            "environment":[
@@ -35,9 +36,9 @@ def create_ordr_base(jsonData):
            "container_name": ordr,
            "networks": network_name,
            "volumes":[
-               "./channel-artifacts/genesis.block:/var/hyperledger/orderer/orderer.genesis.block",
-               "./crypto-config/ordererOrganizations/example.com/orderers/"+ordr+"/msp:/var/hyperledger/orderer/msp",
-               "./crypto-config/ordererOrganizations/example.com/orderers/"+ordr+"/tls/:/var/hyperledger/orderer/tls",
+               "../channel-artifacts/genesis.block:/var/hyperledger/orderer/orderer.genesis.block",
+               "../crypto-config/ordererOrganizations/example.com/orderers/"+ordr+"/msp:/var/hyperledger/orderer/msp",
+               "../crypto-config/ordererOrganizations/example.com/orderers/"+ordr+"/tls/:/var/hyperledger/orderer/tls",
                ordr+":/var/hyperledger/production/orderer"
            ],
            "ports":[
