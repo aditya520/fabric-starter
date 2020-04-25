@@ -33,10 +33,10 @@ def create_artifacts(jsonData):
 
     ### Channel Configuration Transaction ###
 
-    os.system("configtxgen -profile "+PROFILE_NAME+" -outputCreateChannelTx ./network/channel-artifacts/channel.tx -channelID "+ CHANNEL_NAME)
+    os.system("configtxgen -profile "+PROFILE_NAME+" -outputCreateChannelTx ./network/channel-artifacts/channel.tx -configPath ./network -channelID "+ CHANNEL_NAME)
     
-    os.system("configtxgen -profile "+PROFILE_NAME+" -outputAnchorPeersUpdate ./network/channel-artifacts/Org1MSPanchors.tx -channelID "+ CHANNEL_NAME +" -asOrg Org1MSP")
+    os.system("configtxgen -profile "+PROFILE_NAME+" -outputAnchorPeersUpdate ./network/channel-artifacts/Org1MSPanchors.tx -configPath ./network -channelID "+ CHANNEL_NAME +" -asOrg Org1MSP")
     
-    os.system("configtxgen -profile "+PROFILE_NAME+" -outputAnchorPeersUpdate ./network/channel-artifacts/Org2MSPanchors.tx -channelID "+ CHANNEL_NAME +" -asOrg Org2MSP")
+    os.system("configtxgen -profile "+PROFILE_NAME+" -outputAnchorPeersUpdate ./network/channel-artifacts/Org2MSPanchors.tx -configPath ./network -channelID "+ CHANNEL_NAME +" -asOrg Org2MSP")
     
 

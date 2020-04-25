@@ -23,5 +23,5 @@ network/crypto-config/*
 network/configtx.yaml
 network/crypto-config.yaml
 network/docker-compose-cli.yaml
-network/base/*
+network/base/docker-compose-base.yaml
 
