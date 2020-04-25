@@ -2,6 +2,11 @@ import yaml
 import json
 import copy
 import pyaml
+import sys
+
+print("")
+print("Generating crypto-config...")
+sys.stdout.flush()
 
 yaml.SafeDumper.ignore_aliases = lambda *args: True
 
@@ -42,4 +47,3 @@ def create_crypto(jsonData):
 
     with open("./network/crypto-config.yaml", "w+") as f:
             pyaml.dump(crypto_doc, f, vspacing=[2, 1])
-

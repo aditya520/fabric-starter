@@ -1,6 +1,11 @@
 import pyaml
 import json
 import copy
+import sys
+
+print("")
+print("Generating docker-compose files...")
+sys.stdout.flush()
 
 def create_base(jsonData):
     

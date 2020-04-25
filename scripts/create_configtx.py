@@ -5,6 +5,10 @@ import json
 import copy
 import pyaml
 
+print("")
+print("Generating configtx...")
+sys.stdout.flush()
+
 def add_quote(a):
     return '"{0}"'.format(a)
 
