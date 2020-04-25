@@ -2,20 +2,21 @@ import sys
 import os
 
 # def create_artifacts():
-os.system("which cryptogen")
+# os.system("which cryptogen")
 
-cur_dir = os.getcwd() 
-file_list = os.listdir(cur_dir)
+# cur_dir = os.getcwd() 
+# file_list = os.listdir(cur_dir)
 
-
-
+print("")
+print("Generating artifacts...")
+print("")
+sys.stdout.flush()
 ### Certificates ###
-os.system("cryptogen generate --config=./crypto-config/final_files/crypto-config.yaml")
-
-os.system("export FABRIC_CFG_PATH=$PWD")
-
+os.system("./bin/cryptogen generate --config=./network/crypto-config.yaml --output=./network/crypto-config")
 
 ### orderer genesis block ###
 
-os.system("configtxgen -profile SampleMultiNodeEtcdRaft -channelID byfn-sys-channel -outputBlock ./channel-artifacts/genesis.block")
+os.system("./bin/configtxgen -profile SampleMultiNodeEtcdRaft -channelID byfn-sys-channel -outputBlock ./network/channel-artifacts/genesis.block -configPath ./network")
+
+
 
