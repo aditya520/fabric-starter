@@ -105,6 +105,7 @@ def create_configtx(jsonData):
 
     list_doc["Profiles"]["SampleMultiNodeEtcdRaft"]["Orderer"]["EtcdRaft"]["Consenters"] = ordrDetailsArr
     list_doc["Profiles"]["SampleMultiNodeEtcdRaft"]["Orderer"]["Addresses"] = ordrArr
-
-    with open("./crypto-config/final_files/configtx.yaml", "w+") as f:
+    
+    ## Temperory fix
+    with open("./configtx.yaml", "w+") as f:
         pyaml.dump(list_doc, f, vspacing=[2, 1])
