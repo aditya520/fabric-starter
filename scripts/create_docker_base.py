@@ -13,7 +13,7 @@ def create_base(jsonData):
         "services": {**ordrService,**peerService}
     }
     
-    with open("./docker-files/final_files/base/docker-compose-base.yaml", "w+") as f:
+    with open("./network/base/docker-compose-base.yaml", "w+") as f:
         pyaml.dump(base, f, vspacing=[2, 1])
 
 

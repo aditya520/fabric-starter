@@ -14,7 +14,7 @@ def create_docker_compose_cli(jsonData):
     # TODO: Update to take value from json 
     network_name = ["byfn"]
 
-    with open("./docker-files/boilerplate_files/docker-compose-cli-boilerplate.yaml") as f:
+    with open("./network/template/docker-compose-cli-template.yaml") as f:
         list_doc = yaml.load(f)
 
     #### Networks ####
@@ -77,7 +77,7 @@ def create_docker_compose_cli(jsonData):
     # print (list_doc["services"])
 
 
-    with open("./docker-files/final_files/docker-compose-cli.yaml", "w+") as f:
+    with open("./network/docker-compose-cli.yaml", "w+") as f:
         pyaml.dump(list_doc, f, vspacing=[2, 1])
 
     # print (list_doc)

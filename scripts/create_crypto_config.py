@@ -7,7 +7,7 @@ yaml.SafeDumper.ignore_aliases = lambda *args: True
 
 def create_crypto(jsonData):
 
-    with open("./docker-files/boilerplate_files/crypto-config-boilerplate.yaml") as f:
+    with open("./network/template/crypto-config-template.yaml") as f:
         crypto_doc = yaml.load(f)
 
 
@@ -40,6 +40,6 @@ def create_crypto(jsonData):
 
     crypto_doc["OrdererOrgs"][0]["Specs"] = ordrArr
 
-    with open("./crypto-config/final_files/crypto-config.yaml", "w+") as f:
+    with open("./network/crypto-config.yaml", "w+") as f:
             pyaml.dump(crypto_doc, f, vspacing=[2, 1])
 

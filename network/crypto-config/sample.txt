@@ -1,0 +1,1 @@
+Sample file, so you can see the file structure. Git wont allow you to push empty folders. Delete after pull
