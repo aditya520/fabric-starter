@@ -33,4 +33,4 @@ base.create_base(jsonData)
 cli.create_docker_compose_cli(jsonData)
 
 ## Artifacts ##
-gen_art
+gen_art.create_artifacts(jsonData)

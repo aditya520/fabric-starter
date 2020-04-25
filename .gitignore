@@ -24,3 +24,7 @@ docker-files/original_files/*
 channel-artifacts/genesis.block
 crypto-config/peerOrganizations/
 crypto-config/ordererOrganizations/
+network/crypto-config/
+network/channel-artifacts/
+
+bin/
