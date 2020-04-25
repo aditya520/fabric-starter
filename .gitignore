@@ -16,3 +16,5 @@ scripts/create_configtx.pyc
 fixtures/*
 
 scripts/__pycache__/*
+
+docker-files/original_files/*
