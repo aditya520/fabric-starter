@@ -163,6 +163,9 @@ func init() {
         "channelName": {
           "type": "string"
         },
+        "name": {
+          "type": "string"
+        },
         "org": {
           "$ref": "#/definitions/orgs"
         }
@@ -400,6 +403,9 @@ func init() {
       "type": "object",
       "properties": {
         "channelName": {
+          "type": "string"
+        },
+        "name": {
           "type": "string"
         },
         "org": {
