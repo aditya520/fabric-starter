@@ -1,0 +1,21 @@
+Organizations:
+
+  - AnchorPeers:
+      - Host: peer0.org3.example.com
+        Port: 11051
+    ID: Org3MSP
+    MSPDir: crypto-config/peerOrganizations/org3.example.com/msp
+    Name: Org3MSP
+    Policies:
+      Admins:
+        Rule: 'OR("Org3MSP.admin" )'
+        Type: Signature
+      Endorsement:
+        Rule: 'OR("Org3MSP.peer" )'
+        Type: Signature
+      Readers:
+        Rule: 'OR("Org3MSP.admin", "Org3MSP.peer", "Org3MSP.client" )'
+        Type: Signature
+      Writers:
+        Rule: 'OR("Org3MSP.admin", "Org3MSP.client" )'
+        Type: Signature
