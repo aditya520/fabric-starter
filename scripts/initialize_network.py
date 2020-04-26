@@ -117,8 +117,6 @@ def initNetwork(jsonData):
         tlsEnv = "CORE_PEER_TLS_ROOTCERT_FILE=/opt/gopath/src/github.com/hyperledger/fabric/peer/crypto/peerOrganizations/"+org["url"]+"/peers/peer0."+org["url"]+"/tls/ca.crt"
         env = mspEnv + " " + mspConfigEnv + " " + addEnv + " " + tlsEnv + " "
         command = "docker exec cli /bin/bash -c '" + env + "peer lifecycle chaincode approveformyorg --channelID "+CHANNEL_NAME+" --name mycc --version 1.0 --init-required --package-id " + PACKAGE_ID + " --sequence 1 --tls true --cafile " + TLS_CA_FILE + "'" 
-        print("")
-        print(command)
         os.system(command)
         port = port + (org["count"]*1000)
 
@@ -154,6 +152,6 @@ def initNetwork(jsonData):
     print("")
     sys.stdout.flush()
     
-    os.system("docker exec "+CHAINCODE_UTIL_CONTAINER+" peer chaincode invoke -o "+ORDERER_ADDRESS+" --isInit --tls true --cafile "+TLS_CA_FILE+" -C "+CHANNEL_NAME+" -n mycc" + commandSuffix + " -c '{\"Args\":[\"Init\",\"a\",\"100\",\"b\",\"100\"]}' --waitForEvent")
+    os.system("docker exec "+CHAINCODE_UTIL_CONTAINER+" peer chaincode invoke -o "+ORDERER_ADDRESS+" --isInit --tls true --cafile "+TLS_CA_FILE+" -C "+CHANNEL_NAME+" -n mycc" + commandSuffix + " -c '{\"Args\":[\"Init\",\"a\",\"100\",\"b\",\"200\"]}' --waitForEvent")
 
 
