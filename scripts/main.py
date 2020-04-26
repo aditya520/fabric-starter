@@ -12,8 +12,6 @@ import sys
 ## Importing JSON ##
 
 path = sys.argv[1]
-print(path)
-sys.stdout.flush()
 
 with open(path) as f:
     jsonData = json.load(f)
