@@ -28,3 +28,7 @@ network/base/docker-compose-base.yaml
 network/chaincode/*
 network/newOrg/*
 
+chaincode/abstore/java/*
+chaincode/abstore/javascript/*
+chaincode/abstore/go/vendor/*
+chaincode/abstore/go/go.mod
