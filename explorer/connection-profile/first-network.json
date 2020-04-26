@@ -1,0 +1,96 @@
+{
+  "name": "first-network",
+  "version": "1.0.0",
+  "client": {
+    "tlsEnable": true,
+    "adminUser": "admin",
+    "adminPassword": "adminpw",
+    "enableAuthentication": false,
+    "organization": ["CeoMSP","CtoMSP"],
+    "connection": {
+      "timeout": {
+        "peer": {
+          "endorser": "300"
+        },
+        "orderer": "300"
+      }
+    }
+  },
+  "channels": {
+    "mychannel": {
+      "peers": {
+        "peer0.ceo.example.com": {},
+        "peer0.cto.example.com": {}
+      },
+      "connection": {
+        "timeout": {
+          "peer": {
+            "endorser": "6000",
+            "eventHub": "6000",
+            "eventReg": "6000"
+          }
+        }
+      }
+    }
+  },
+  "organizations": {
+    "CeoMSP": {
+      "mspid": "CeoMSP",
+      "fullpath": true,
+      "adminPrivateKey": {
+        "path": "/tmp/crypto/peerOrganizations/ceo.example.com/users/Admin@ceo.example.com/msp/keystore/priv_sk"
+      },
+      "signedCert": {
+        "path": "/tmp/crypto/peerOrganizations/ceo.example.com/users/Admin@ceo.example.com/msp/signcerts/Admin@ceo.example.com-cert.pem"
+      }
+    },
+    "CtoMSP": {
+      "mspid": "CtoMSP",
+      "fullpath": true,
+      "adminPrivateKey": {
+        "path": "/tmp/crypto/peerOrganizations/cto.example.com/users/Admin@ceo.example.com/msp/keystore/priv_sk"
+      },
+      "signedCert": {
+        "path": "/tmp/crypto/peerOrganizations/cto.example.com/users/Admin@ceo.example.com/msp/signcerts/Admin@cto.example.com-cert.pem"
+      }
+    }
+  },
+  "peers": {
+    "peer0.ceo.example.com": {
+      "tlsCACerts": {
+        "path": "/tmp/crypto/peerOrganizations/ceo.example.com/peers/peer0.ceo.example.com/tls/ca.crt"
+      },
+      "url": "grpc://peer0.ceo.example.com:7051",
+      "grpcOptions": {
+        "ssl-target-name-override": "peer0.ceo.example.com"
+      }
+    },
+    "peer1.ceo.example.com": {
+      "tlsCACerts": {
+        "path": "/tmp/crypto/peer1Organizations/ceo.example.com/peers/peer1.ceo.example.com/tls/ca.crt"
+      },
+      "url": "grpc://peer1.ceo.example.com:8051",
+      "grpcOptions": {
+        "ssl-target-name-override": "peer1.ceo.example.com"
+      }
+    },
+    "peer0.cto.example.com": {
+      "tlsCACerts": {
+        "path": "/tmp/crypto/peerOrganizations/cto.example.com/peers/peer0.cto.example.com/tls/ca.crt"
+      },
+      "url": "grpc://peer0.cto.example.com:9051",
+      "grpcOptions": {
+        "ssl-target-name-override": "peer0.cto.example.com"
+      }
+    },
+    "peer1.cto.example.com": {
+      "tlsCACerts": {
+        "path": "/tmp/crypto/peer1Organizations/cto.example.com/peers/peer1.cto.example.com/tls/ca.crt"
+      },
+      "url": "grpc://peer1.ceo.example.com:10051",
+      "grpcOptions": {
+        "ssl-target-name-override": "peer1.cto.example.com"
+      }
+    }
+  }
+}

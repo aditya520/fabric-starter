@@ -5,9 +5,7 @@ import json
 import copy
 import pyaml
 
-print("")
-print("Generating configtx...")
-sys.stdout.flush()
+
 
 
 actorDict = {
@@ -45,6 +43,9 @@ def add_quote(a):
     return '"{0}"'.format(a)
 
 def create_configtx(jsonData):
+    print("")
+    print("Generating configtx...")
+    sys.stdout.flush()
     yaml.SafeDumper.ignore_aliases = lambda *args: True
 
     with open("./network/template/configtx-template.yaml") as f:

@@ -1,0 +1,69 @@
+
+# SPDX-License-Identifier: Apache-2.0
+version: '2.1'
+
+networks:
+  byfn:
+
+services:
+  explorerdb.mynetwork.com:
+    image: hyperledger/explorer-db:${EXPLORER_VERSION}
+    container_name: explorerdb.mynetwork.com
+    hostname: explorerdb.mynetwork.com
+    environment:
+      - DATABASE_DATABASE=fabricexplorer
+      - DATABASE_USERNAME=hppoc
+      - DATABASE_PASSWORD=password
+    volumes:
+      - ./db/createdb.sh:/docker-entrypoint-initdb.d/createdb.sh
+      - ../data/explorerdb:/var/lib/postgresql/data
+      - ../data/shared:/var/shared
+
+  explorer.mynetwork.com:
+    image: hyperledger/explorer:${EXPLORER_VERSION}
+    container_name: explorer.mynetwork.com
+    hostname: explorer.mynetwork.com
+    environment:
+      - DATABASE_HOST=explorerdb.mynetwork.com
+      - DATABASE_USERNAME=hppoc
+      - DATABASE_PASSWD=password
+      - DISCOVERY_AS_LOCALHOST=false
+    volumes:
+      - ./config.json:/opt/explorer/app/platform/fabric/config.json
+      - ./connection-profile:/opt/explorer/app/platform/fabric/connection-profile
+      - ../network/crypto-config:/tmp/crypto
+      - ../data/walletstore:/opt/wallet
+      - ../data/shared:/var/shared
+    command:
+      - sh
+      - -c
+      - |
+        countdown=60
+        while [ ! -f /var/shared/explorerdb_done ] && [ "$${countdown}" != 0 ]; do
+          echo Waiting for explorerdb to complete. Waiting for max $${countdown}s
+          sleep 5
+          countdown=$$((countdown - 5))
+        done
+
+        node /opt/explorer/main.js && tail -f /dev/null
+    ports:
+      - 8090:8080
+
+  proms:
+    container_name: proms
+    image: prom/prometheus:${PROMETHEUS_VERSION}
+    volumes:
+      - ./artifacts/operations/balance-transfer/prometheus.yml:/etc/prometheus/prometheus.yml
+      - ../data/prometheus:/prometheus
+    ports:
+      - 9090:9090
+
+  grafana:
+    container_name: grafana
+    image: grafana/grafana:${GRAFANA_VERSION}
+    volumes:
+      - ./artifacts/operations/balance-transfer/balance-transfer-grafana-dashboard.json:/var/lib/grafana/dashboards/mydashboard.json
+      - ./artifacts/operations/grafana_conf/provisioning:/etc/grafana/provisioning
+      - ../data/grafana:/var/lib/grafana
+    ports:
+      - 3000:3000
