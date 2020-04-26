@@ -72,6 +72,17 @@ def create_docker_compose_cli(jsonData):
     #### Services CLI ####
 
 
+    for i in range (0, len(list_doc["services"]["cli"]["environment"])):
+        env = list_doc["services"]["cli"]["environment"][i]
+        if list_doc["services"]["cli"]["environment"][i].find("org1") != -1:
+            env = env.replace("org1",jsonData["organizations"]["peerOrgs"][0]["name"])
+        if list_doc["services"]["cli"]["environment"][i].find("Org1MSP") != -1:
+            env = env.replace("Org1MSP",jsonData["organizations"]["peerOrgs"][0]["mspID"])
+            
+        list_doc["services"]["cli"]["environment"][i] = env
+
+            
+
     list_doc["services"]["cli"]["depends_on"] = org_final_name
     list_doc["services"]["cli"]["networks"] = network_name
     # print (list_doc["services"])
