@@ -39,3 +39,5 @@ net_up.network_up()
 
 ## Network Init ##
 net_init.initNetwork(jsonData)
+
+sys.exit(0)
