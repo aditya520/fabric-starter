@@ -9,7 +9,7 @@ sys.stdout.flush()
 
 def create_base(jsonData):
     
-    peerService = create_peer_base(jsonData)
+    peerService = create_peer_base(jsonData,7051)
     
     ordrService = create_ordr_base(jsonData)
 
@@ -54,9 +54,8 @@ def create_ordr_base(jsonData):
     
     return services      
 
-def create_peer_base(jsonData):
+def create_peer_base(jsonData,peer_init_port):
     peer_name = "peer"
-    peer_init_port = 7051
 
     org_final_name = []
     org_final_name_withPort = []
