@@ -4,6 +4,7 @@ import create_configtx as configtx
 import create_crypto_config as crypto
 import generate_artifcats as gen_art
 import network_up as net_up
+import initialize_network as net_init
 import json
 import os
 import sys
@@ -35,3 +36,6 @@ gen_art.create_artifacts(jsonData)
 
 ## Docker up ##
 net_up.network_up()
+
+## Network Init ##
+net_init.initNetwork(jsonData)
