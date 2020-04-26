@@ -3,6 +3,7 @@ import create_docker_cli as cli
 import create_configtx as configtx
 import create_crypto_config as crypto
 import generate_artifcats as gen_art
+import network_up as net_up
 import json
 import os
 import sys
@@ -31,3 +32,6 @@ cli.create_docker_compose_cli(jsonData)
 
 ## Artifacts ##
 gen_art.create_artifacts(jsonData)
+
+## Docker up ##
+net_up.network_up()

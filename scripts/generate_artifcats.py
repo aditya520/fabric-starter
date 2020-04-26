@@ -22,7 +22,7 @@ def create_artifacts(jsonData):
 
     ### Setting up the env variable ###
     #TODO: Set up for multi channel
-    
+
     for i in range(0,len(jsonData["channel"])):
         CHANNEL_NAME=jsonData["channel"][0]["name"]
 
@@ -34,9 +34,9 @@ def create_artifacts(jsonData):
     ### Channel Configuration Transaction ###
 
     os.system("configtxgen -profile "+PROFILE_NAME+" -outputCreateChannelTx ./network/channel-artifacts/channel.tx -configPath ./network -channelID "+ CHANNEL_NAME)
-    
+
     os.system("configtxgen -profile "+PROFILE_NAME+" -outputAnchorPeersUpdate ./network/channel-artifacts/Org1MSPanchors.tx -configPath ./network -channelID "+ CHANNEL_NAME +" -asOrg Org1MSP")
-    
+
     os.system("configtxgen -profile "+PROFILE_NAME+" -outputAnchorPeersUpdate ./network/channel-artifacts/Org2MSPanchors.tx -configPath ./network -channelID "+ CHANNEL_NAME +" -asOrg Org2MSP")
-    
+
 
