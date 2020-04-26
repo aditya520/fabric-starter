@@ -3,6 +3,7 @@ import os
 import sys
 import pyaml
 import yaml
+import copy
 import create_configtx as configtx
 import create_crypto_config as crypto
 
@@ -19,7 +20,7 @@ def createConfigtx(jsonData,inputJson):
         "Organizations": orgArr
     }
 
-    with open("./network/newOrg/"+jsonData["organizations"]["peerOrgs"][0]["name"]+"configtx.yaml", "w+") as f:
+    with open("./network/newOrg/"+jsonData["organizations"]["peerOrgs"][0]["name"]+"/configtx.yaml", "w+") as f:
         pyaml.dump(configtxObj, f, vspacing=[2, 1])
 
 
@@ -33,12 +34,10 @@ def createCryptoConfig(jsonData, inputJson):
         "PeerOrgs": peerOrgsArr
     }
     
-    with open("./network/newOrg/"+jsonData["organizations"]["peerOrgs"][0]["name"]+"crypto-config.yaml", "w+") as f:
+    with open("./network/newOrg/"+jsonData["organizations"]["peerOrgs"][0]["name"]+"/crypto-config.yaml", "w+") as f:
            pyaml.dump(cryptoObj, f, vspacing=[2, 1])
 
 path = sys.argv[1]
-print(path)
-sys.stdout.flush()
 
 with open(path) as f:
     jsonData = json.load(f)
@@ -46,5 +45,14 @@ with open(path) as f:
 with open("./fixtures/"+jsonData["name"]+".json") as f:
     inputJson = json.load(f)
     
+peerOrgs = copy.deepcopy(inputJson["organizations"]["peerOrgs"])
+peerOrgs.append(jsonData["organizations"]["peerOrgs"][0])
+    
+os.mkdir("./network/newOrg/"+jsonData["organizations"]["peerOrgs"][0]["name"])
+
 createConfigtx(jsonData,inputJson)
 createCryptoConfig(jsonData, inputJson)
+
+inputJson["organizations"]["peerOrgs"] = peerOrgs
+with open("./fixtures/"+jsonData["name"]+".json", "w+") as f:
+    json.dump(inputJson, f, ensure_ascii=False, indent=4)
