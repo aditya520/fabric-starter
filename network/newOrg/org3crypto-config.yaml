@@ -1,9 +1,0 @@
-PeerOrgs:
-
-  - Domain: org3.example.com
-    EnableNodeOUs: true
-    Name: Org3
-    Template:
-      Count: 2
-    Users:
-      Count: 1
