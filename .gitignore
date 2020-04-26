@@ -3,6 +3,7 @@ Misc
 go.sum
 app
 .vscode
+samples/*
 
 Python Stuff
 scripts/create_docker_base.pyc
@@ -17,11 +18,13 @@ fixtures/*
 Executables
 bin/*
 
-Network Artifacts Files
+Network Files
 network/channel-artifacts/*
 network/crypto-config/*
 network/configtx.yaml
 network/crypto-config.yaml
 network/docker-compose-cli.yaml
 network/base/docker-compose-base.yaml
+network/chaincode/*
+network/newOrg/*
 
