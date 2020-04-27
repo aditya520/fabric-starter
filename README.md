@@ -1,7 +1,7 @@
-# ExAc Fabric Starter
+# ABC (Automated Blockchain Centre)
 
+## Start the server
 
+```./start.sh```
 
-## To create custom Docker file
-
-```python create_docker_cli.py```
+You might have to install python dependicies first
