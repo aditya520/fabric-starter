@@ -5,6 +5,7 @@ import create_crypto_config as crypto
 import generate_artifcats as gen_art
 import network_up as net_up
 import initialize_network as net_init
+import start_explorer as exp
 import json
 import os
 import sys
@@ -39,5 +40,9 @@ net_up.network_up()
 
 ## Network Init ##
 net_init.initNetwork(jsonData)
+
+
+# Start Explorer ##
+#exp.start_explorer(jsonData)
 
 sys.exit(0)

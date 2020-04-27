@@ -4,13 +4,14 @@ import copy
 import pyaml
 import sys
 
-print("")
-print("Generating crypto-config...")
-sys.stdout.flush()
+
 
 yaml.SafeDumper.ignore_aliases = lambda *args: True
 
 def create_crypto(jsonData):
+    print("")
+    print("Generating crypto-config...")
+    sys.stdout.flush()
 
     with open("./network/template/crypto-config-template.yaml") as f:
         crypto_doc = yaml.load(f)

@@ -3,11 +3,13 @@ import json
 import copy
 import sys
 
-print("")
-print("Generating docker-compose files...")
-sys.stdout.flush()
+
 
 def create_base(jsonData):
+    
+    print("")
+    print("Generating docker-compose files...")
+    sys.stdout.flush()
     
     peerService = create_peer_base(jsonData,7051)
     
