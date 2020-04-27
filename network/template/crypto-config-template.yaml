@@ -1,7 +1,7 @@
 
 OrdererOrgs:
   - Name: Orderer
-    Domain: example.com
+    Domain: everledger.com
     Specs:
       - Hostname: 
 

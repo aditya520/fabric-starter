@@ -42,8 +42,8 @@ def create_ordr_base(jsonData):
            "networks": network_name,
            "volumes":[
                "../channel-artifacts/genesis.block:/var/hyperledger/orderer/orderer.genesis.block",
-               "../crypto-config/ordererOrganizations/example.com/orderers/"+ordr+"/msp:/var/hyperledger/orderer/msp",
-               "../crypto-config/ordererOrganizations/example.com/orderers/"+ordr+"/tls/:/var/hyperledger/orderer/tls",
+               "../crypto-config/ordererOrganizations/everledger.com/orderers/"+ordr+"/msp:/var/hyperledger/orderer/msp",
+               "../crypto-config/ordererOrganizations/everledger.com/orderers/"+ordr+"/tls/:/var/hyperledger/orderer/tls",
                ordr+":/var/hyperledger/production/orderer"
            ],
            "ports":[

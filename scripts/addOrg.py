@@ -91,7 +91,7 @@ def prepChannelUpdate(name,mspID,channelName):
     print("")
     sys.stdout.flush()
     
-    command = "docker exec cli peer channel fetch config config_block.pb -o orderer0.example.com:7050 -c " + channelName + " --tls --cafile /opt/gopath/src/github.com/hyperledger/fabric/peer/crypto/ordererOrganizations/example.com/orderers/orderer0.example.com/msp/tlscacerts/tlsca.example.com-cert.pem || exit 1"
+    command = "docker exec cli peer channel fetch config config_block.pb -o orderer0.everledger.com:7050 -c " + channelName + " --tls --cafile /opt/gopath/src/github.com/hyperledger/fabric/peer/crypto/ordererOrganizations/everledger.com/orderers/orderer0.everledger.com/msp/tlscacerts/tlsca.everledger.com-cert.pem || exit 1"
     
     os.system(command)
     
@@ -112,7 +112,7 @@ def prepChannelUpdate(name,mspID,channelName):
     
     os.system(command)
     
-    command = "docker exec cli configtxlator compute_update --channel_id mychannel --original config.pb --updated modified_config.pb --output update.pb"
+    command = "docker exec cli configtxlator compute_update --channel_id " + channelName + " --original config.pb --updated modified_config.pb --output update.pb"
     
     os.system(command)
      
@@ -145,7 +145,7 @@ def updateChannel(orgs, channelName):
         
         port = port + (org["count"] * 1000)
       
-    command = "docker exec cli peer channel update -f org_update_in_envelope.pb -c mychannel -o orderer0.example.com:7050 --tls --cafile /opt/gopath/src/github.com/hyperledger/fabric/peer/crypto/ordererOrganizations/example.com/orderers/orderer0.example.com/msp/tlscacerts/tlsca.example.com-cert.pem"
+    command = "docker exec cli peer channel update -f org_update_in_envelope.pb -c " + channelName +" -o orderer0.everledger.com:7050 --tls --cafile /opt/gopath/src/github.com/hyperledger/fabric/peer/crypto/ordererOrganizations/everledger.com/orderers/orderer0.everledger.com/msp/tlscacerts/tlsca.everledger.com-cert.pem"
     os.system(command)
 
 
@@ -161,7 +161,7 @@ def joinChannel(jsonData, channelName, port):
         env = mspEnv + " " + mspConfigEnv + " " + addEnv + " " + tlsEnv + " "
         
         if i == 0:
-            command = "docker exec cli /bin/bash -c '"+ env +"peer channel fetch 0 channel.block -o orderer0.example.com:7050 -c "+ channelName +" --tls --cafile /opt/gopath/src/github.com/hyperledger/fabric/peer/crypto/ordererOrganizations/example.com/orderers/orderer0.example.com/msp/tlscacerts/tlsca.example.com-cert.pem'"
+            command = "docker exec cli /bin/bash -c '"+ env +"peer channel fetch 0 channel.block -o orderer0.everledger.com:7050 -c "+ channelName +" --tls --cafile /opt/gopath/src/github.com/hyperledger/fabric/peer/crypto/ordererOrganizations/everledger.com/orderers/orderer0.everledger.com/msp/tlscacerts/tlsca.everledger.com-cert.pem'"
             os.system(command)
         
         

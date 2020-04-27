@@ -114,8 +114,8 @@ def create_ordr_config(jsonData):
         ordrDetails = copy.deepcopy(ordrDict)
         ordrDetails["Host"] = ordr
         ordrDetails["Port"] = ordrPort
-        ordrDetails["ClientTLSCert"] = "crypto-config/ordererOrganizations/example.com/orderers/" + ordr + "/tls/server.crt"
-        ordrDetails["ServerTLSCert"] = "crypto-config/ordererOrganizations/example.com/orderers/" + ordr + "/tls/server.crt"
+        ordrDetails["ClientTLSCert"] = "crypto-config/ordererOrganizations/everledger.com/orderers/" + ordr + "/tls/server.crt"
+        ordrDetails["ServerTLSCert"] = "crypto-config/ordererOrganizations/everledger.com/orderers/" + ordr + "/tls/server.crt"
         ordrDetailsArr.append(ordrDetails)
         ordrPort = ordrPort + 1000
     

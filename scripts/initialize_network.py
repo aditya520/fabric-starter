@@ -6,9 +6,9 @@ import subprocess
 ## ENV files ##
 
 CHAINCODE_UTIL_CONTAINER="cli"
-ORDERER_ADDRESS="orderer0.example.com:7050"
+ORDERER_ADDRESS="orderer0.everledger.com:7050"
 CHANNELS_CONFIG_PATH="/opt/gopath/src/github.com/hyperledger/fabric/peer/channel-artifacts"
-TLS_CA_FILE = "/opt/gopath/src/github.com/hyperledger/fabric/peer/crypto/ordererOrganizations/example.com/orderers/orderer0.example.com/msp/tlscacerts/tlsca.example.com-cert.pem"
+TLS_CA_FILE = "/opt/gopath/src/github.com/hyperledger/fabric/peer/crypto/ordererOrganizations/everledger.com/orderers/orderer0.everledger.com/msp/tlscacerts/tlsca.everledger.com-cert.pem"
 
 
 ###Create channel ##
@@ -40,6 +40,10 @@ def initNetwork(jsonData):
         addEnv = "CORE_PEER_ADDRESS=peer0."+org["url"] + ":" + str(port)
         tlsEnv = "CORE_PEER_TLS_ROOTCERT_FILE=/opt/gopath/src/github.com/hyperledger/fabric/peer/crypto/peerOrganizations/"+org["url"]+"/peers/peer0."+org["url"]+"/tls/ca.crt"
         env = mspEnv + " " + mspConfigEnv + " " + addEnv + " " + tlsEnv + " "
+        
+        print("ENV for ",org["name"])
+        print(env)
+        print("")
         
         command = "docker exec cli /bin/bash -c '"+env+"peer channel join -b "+CHANNEL_NAME+".block'"
         os.system(command)

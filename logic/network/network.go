@@ -18,7 +18,7 @@ func CreateNetwork(networkObj *models.Object) (string, error) {
 	obj.Channel = networkObj.Channel
 	obj.EPolicy = networkObj.EPolicy
 
-	domain := ".example.com"
+	domain := ".everledger.com"
 
 	for i := 0; i < len(networkObj.Network.Orgs); i++ {
 		count, err := strconv.Atoi(networkObj.Network.Orgs[i].NoOfPeers)
@@ -66,7 +66,7 @@ func CreateNetwork(networkObj *models.Object) (string, error) {
 func AddOrg(extraOrg *models.ExtraOrg) (string, error) {
 
 	var extraOrgObj fileModels.ExtraOrg
-	domain := ".example.com"
+	domain := ".everledger.com"
 	fileName := "fixtures/add" + strings.Title(strings.ToLower(extraOrg.Org.Name)) + strings.Title(strings.ToLower(extraOrg.Name)) + ".json"
 
 	log.Printf("FileName: ", fileName)
