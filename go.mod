@@ -3,7 +3,6 @@ module fabric_starter
 go 1.14
 
 require (
-	bitbucket.org/everledger/evl-lib v0.0.17 // indirect
 	github.com/go-openapi/errors v0.19.4
 	github.com/go-openapi/loads v0.19.5
 	github.com/go-openapi/runtime v0.19.15
